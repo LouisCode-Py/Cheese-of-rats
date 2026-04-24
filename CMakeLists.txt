@@ -15,8 +15,6 @@ FetchContent_MakeAvailable(SFML)
 add_executable(main src/main.cpp
         src/Ennemi.cpp
         src/Ennemi.h
-        src/player.cpp
-        src/player.h
         src/Player.cpp
         src/Player.h
 )
