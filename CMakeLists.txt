@@ -15,6 +15,10 @@ FetchContent_MakeAvailable(SFML)
 add_executable(main src/main.cpp
         src/Ennemi.cpp
         src/Ennemi.h
+        src/player.cpp
+        src/player.h
+        src/Player.cpp
+        src/Player.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

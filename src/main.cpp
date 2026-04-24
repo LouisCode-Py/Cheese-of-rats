@@ -4,10 +4,10 @@
 int main() {
 	sf::RenderWindow window( sf::VideoMode( { 800, 800 } ), "SFML works!" );
 	sf::CircleShape shape( 40.f );
-	shape.setPosition({400,400});
 	shape.setFillColor( sf::Color::Green );
 	const sf::Texture texture("../../rat.jpg");
 	sf::Sprite sprite(texture);
+	sprite.setPosition({400,400});
 	sf::Angle angle = sf::degrees(90);
 
 	while ( window.isOpen() )
