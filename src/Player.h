@@ -4,21 +4,27 @@
 
 #ifndef CMAKESFMLPROJECT_PLAYER_H
 #define CMAKESFMLPROJECT_PLAYER_H
-#include "SFML/Graphics/Sprite.hpp"
-#include "SFML/Graphics/Texture.hpp"
+#include <SFML/Graphics.hpp>
 
 
-class Player {
+class Player : public sf::Drawable {
 private:
+
+    sf::Sprite _playerSprite;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
+        target.draw(_playerSprite, states);
+    }
     sf::Texture _playerTexture;
     int _catNumber;
-    //double _playerPosition;
+    sf::Vector2f _playerPosition;
 
     int _healthPoints;
-    sf::Sprite _playerSprite;
 public:
     Player(sf::Texture texture);
     Player();
+
+    void move(sf::Vector2f offset);
+    void movements();
 };
 
 
