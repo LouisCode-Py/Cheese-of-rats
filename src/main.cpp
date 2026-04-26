@@ -1,14 +1,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Player.h"
+#include "Ennemi.h"
+#include <vector>
 
 int main() {
-	sf::RenderWindow window( sf::VideoMode( { 800, 800 } ), "SFML works!" );
+
+	sf::RenderWindow window( sf::VideoMode( { 1600, 1000 } ), "SFML works!" );
 	sf::CircleShape shape( 40.f );
 	shape.setFillColor( sf::Color::Green );
-	const sf::Texture texture("../../rat.jpg");
-	sf::Sprite sprite(texture);
-	sprite.setPosition({400,400});
-	sf::Angle angle = sf::degrees(90);
+	sf::Texture texture("../../rat.jpg");
+	sf::Texture cheeseT("../../rat.jpg");
+	sf::Clock ennemiClock;
+	Player rat(texture);
+
+
 
 	while ( window.isOpen() )
 	{
@@ -18,21 +24,26 @@ int main() {
 				window.close();
 		}
 
+
+
 		window.clear();
-		window.draw( sprite );
-		window.draw( shape );
+
+
+		rat.RenderPlayer(window);
+		window.draw( shape);
+		shape.setPosition({1000,600});
+
+
 		window.display();
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-			sprite.move({0.f,-0.1});
-		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-			sprite.move({0.f,0.1});
-		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-			sprite.move({-0.1,0.f});
-		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-			sprite.move({0.1,0.f});
-		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
-			sprite.setRotation(sprite.getRotation()+angle);
-		}
+
+
+
+		rat.movePlayer();
+
+
+
+
+
 	}
 }
