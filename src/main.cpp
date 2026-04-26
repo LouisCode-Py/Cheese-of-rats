@@ -7,6 +7,7 @@ int main() {
 	//sf::Texture texture("rat.jpg");
 	//Player joueur(texture);
 	Player joueur;
+	bool isAlive = true;
 
 	sf::CircleShape shape( 40.f );
 	shape.setFillColor( sf::Color::Green );
@@ -18,11 +19,17 @@ int main() {
 			if ( event->is<sf::Event::Closed>() )
 				window.close();
 		}
-
+		if(joueur.getGlobalBounds().findIntersection(shape.getGlobalBounds()))
+		{
+			isAlive = false;
+		}
 		window.clear();
 		joueur.movements();
 		window.draw( joueur );
-		window.draw( shape );
+		if (isAlive)
+		{
+			window.draw( shape );
+		}
 		window.display();
 
 	}

@@ -37,6 +37,11 @@ void Player::move(sf::Vector2f offset) {
     _playerPosition = _playerSprite.getPosition();
 }
 
+sf::FloatRect Player::getGlobalBounds() const {
+    return _playerSprite.getGlobalBounds();
+}
+
+
 void Player::movements() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
         _playerSprite.move({0.1f,0.1f});;
@@ -44,7 +49,7 @@ void Player::movements() {
         _playerSprite.move({-0.1f,0.1f});;
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
         _playerSprite.move({-0.1f,-0.1f});;
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
         _playerSprite.move({0.1f,-0.1f});;
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
         _playerSprite.move({0.f,-0.1});

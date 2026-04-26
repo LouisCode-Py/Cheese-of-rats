@@ -23,6 +23,8 @@ public:
     Player(sf::Texture texture);
     Player();
 
+    sf::FloatRect getGlobalBounds() const;
+
     void move(sf::Vector2f offset);
     void movements();
 };
