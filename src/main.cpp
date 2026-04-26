@@ -3,9 +3,7 @@
 #include "Player.h"
 
 int main() {
-	sf::RenderWindow window( sf::VideoMode( { 800, 800 } ), "SFML works!" );
-	//sf::Texture texture("rat.jpg");
-	//Player joueur(texture);
+	sf::RenderWindow window( sf::VideoMode( { 800, 800 } ), "Labyrinth of STL" );
 	Player joueur;
 	bool isAlive = true;
 
