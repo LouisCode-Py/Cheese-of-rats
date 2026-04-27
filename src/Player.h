@@ -15,7 +15,7 @@ class Player {
 private:
     sf::Texture _playerTexture;
     int _catNumber;
-    //double _playerPosition;
+    sf::Vector2f _playerPosition;
     int _healthPoints;
     sf::Sprite _playerSprite;
     sf::RenderWindow _window;
@@ -28,8 +28,11 @@ public:
     const sf::Sprite& getSprite() const;
 
     void movePlayer();
-    void RenderPlayer(sf::RenderWindow& window);
+    void renderPlayer(sf::RenderWindow& window);
 
+    sf::Vector2f getPlayerPosition() const;
+    sf::FloatRect getGlobalBounds() const;
+    int reduceHealth();
 };
 
 

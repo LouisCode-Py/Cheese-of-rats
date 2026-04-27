@@ -11,8 +11,8 @@
 class Ennemi {
 private:
     sf::Time _timeToDie;
-    sf::Texture _EnnemieTexture;
-    sf::Sprite _EnnemieSprite;
+    sf::Texture _ennemyTexture;
+    sf::Sprite _ennemySprite;
     float _speed;
     float _x,_y;
     float _directionX,_directionY;
@@ -23,14 +23,14 @@ public:
     void setSpeed(float speed);
     void setDirection(const sf::Sprite& player);
     void setSpawn(const sf::CircleShape& spawn);
-    void moveEnnemi();
-    void setEnnemi(float x, float y);
-    void RenderEnnemi(sf::RenderWindow& window);
+    void moveEnnemy();
+    void setEnnemy(float x, float y);
+    void renderEnnemy(sf::RenderWindow& window);
     bool getIsnotReturn();
     const sf::Sprite& getSprite() const;
     void setIsnotReturn(bool isReturn);
 
-
+    sf::FloatRect getGlobalBounds();
 };
 
 

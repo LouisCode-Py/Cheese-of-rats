@@ -1,7 +1,7 @@
 #include "Ennemi.h"
 #include <cmath>
 
-Ennemi::Ennemi(float speed, const sf::Texture& texture, const sf::Sprite& player) : _EnnemieSprite(texture)
+Ennemi::Ennemi(float speed, const sf::Texture& texture, const sf::Sprite& player) : _ennemySprite(texture)
 {
     setSpeed(speed);
     this->_x = 0.f;
@@ -23,7 +23,7 @@ void Ennemi::setDirection(const sf::Sprite &player) {
 void Ennemi::setSpawn(const sf::CircleShape &spawn) {
       this->_y = spawn.getPosition().y;
       this->_x = spawn.getPosition().x;
-        setEnnemi(spawn.getPosition().x,spawn.getPosition().y);
+        setEnnemy(spawn.getPosition().x,spawn.getPosition().y);
 
 }
 
@@ -32,18 +32,18 @@ void Ennemi::setSpeed(float speed) {
     this->_speed = speed;
 }
 
-void Ennemi::moveEnnemi() {
+void Ennemi::moveEnnemy() {
     float hypotenus = sqrt(pow(_directionX,2)+pow(_directionY,2));
-    this-> _EnnemieSprite.move({(this->_directionX/hypotenus)*_speed,(this->_directionY/hypotenus)*_speed});
+    this-> _ennemySprite.move({(this->_directionX/hypotenus)*_speed,(this->_directionY/hypotenus)*_speed});
 }
 
 
 
-void Ennemi::setEnnemi(float x, float y) {
-    _EnnemieSprite.setPosition({x,y});
+void Ennemi::setEnnemy(float x, float y) {
+    _ennemySprite.setPosition({x,y});
 }
 
-void Ennemi::RenderEnnemi(sf::RenderWindow &window) {
+void Ennemi::renderEnnemy(sf::RenderWindow &window) {
     window.draw(getSprite());
 }
 
@@ -52,9 +52,13 @@ bool Ennemi::getIsnotReturn() {
 }
 
 const sf::Sprite &Ennemi::getSprite() const {
-    return this->_EnnemieSprite;
+    return this->_ennemySprite;
 }
 
 void Ennemi::setIsnotReturn(bool isReturn) {
     this->_isnotreturn = isReturn;
+}
+
+sf::FloatRect Ennemi::getGlobalBounds() {
+    return _ennemySprite.getGlobalBounds();
 }
