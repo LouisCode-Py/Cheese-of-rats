@@ -13,6 +13,7 @@ int main() {
 	sf::Texture cheeseT("../../rat.jpg");
 	sf::Clock ennemiClock;
 	Player rat(texture);
+	bool isAlive = true;
 
 
 
@@ -26,15 +27,17 @@ int main() {
 
 
 
+		if(rat.getGlobalBounds().findIntersection(shape.getGlobalBounds()))
+		{
+			isAlive = false;
+		}
 		window.clear();
-
-
 		rat.RenderPlayer(window);
-		window.draw( shape);
-		shape.setPosition({1000,600});
-
-
 		window.display();
+		if (isAlive)
+		{
+			window.draw( shape );
+		}
 
 
 

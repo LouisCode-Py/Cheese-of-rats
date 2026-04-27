@@ -28,7 +28,15 @@ void Player::RenderPlayer( sf::RenderWindow& window) {
 }
 
 void Player::movePlayer() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+        _playerSprite.move({0.1f,0.1f});
+    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+        _playerSprite.move({-0.1f,0.1f});
+    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+        _playerSprite.move({-0.1f,-0.1f});
+    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+        _playerSprite.move({0.1f,-0.1f});
+    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
         _playerSprite.move({0.f,-0.1});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
         _playerSprite.move({0.f,0.1});
