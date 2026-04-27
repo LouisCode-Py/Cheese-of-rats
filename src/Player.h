@@ -10,7 +10,8 @@
 #include "SFML/Graphics.hpp"
 
 
-class Player : public sf::Drawable {
+class Player {
+  //  : public sf::Drawable
 private:
     sf::Texture _playerTexture;
     int _catNumber;

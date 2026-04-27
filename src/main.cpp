@@ -27,17 +27,17 @@ int main() {
 
 
 
-		if(rat.getGlobalBounds().findIntersection(shape.getGlobalBounds()))
-		{
-			isAlive = false;
-		}
+		//if(rat.getGlobalBounds().findIntersection(shape.getGlobalBounds()))
+		// {
+		// 	isAlive = false;
+		// }
 		window.clear();
 		rat.RenderPlayer(window);
 		window.display();
-		if (isAlive)
-		{
-			window.draw( shape );
-		}
+		// if (isAlive)
+		// {
+		// 	window.draw( shape );
+		// }
 
 
 
