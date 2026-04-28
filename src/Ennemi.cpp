@@ -1,5 +1,6 @@
 #include "Ennemi.h"
 #include <cmath>
+#include <_mingw_mac.h>
 
 Ennemi::Ennemi(float speed, const sf::Texture& texture, const sf::Sprite& player) : _EnnemieSprite(texture)
 {
@@ -8,15 +9,16 @@ Ennemi::Ennemi(float speed, const sf::Texture& texture, const sf::Sprite& player
     this->_y = 0.f;
     this ->_directionX = 0.f;
     this-> _directionY = 0.f;
-    setIsnotReturn(false);
+    this->_timeToDie = 2.f;
+
 }
 
 
 
 
-void Ennemi::setDirection(const sf::Sprite &player) {
-    this->_directionY =   player.getPosition().y - this->_y ;
-    this->_directionX =   player.getPosition().x - this->_x ;
+void Ennemi::setDirection(sf::Vector2f position) {
+    this->_directionY =  position.y - this->_y ;
+    this->_directionX =  position.x - this->_x ;
 
 }
 
@@ -34,7 +36,7 @@ void Ennemi::setSpeed(float speed) {
 
 void Ennemi::moveEnnemi() {
     float hypotenus = sqrt(pow(_directionX,2)+pow(_directionY,2));
-    this-> _EnnemieSprite.move({(this->_directionX/hypotenus)*_speed,(this->_directionY/hypotenus)*_speed});
+    this-> _EnnemieSprite.move({(_directionX)*_speed,(_directionY)*_speed});
 }
 
 
@@ -47,14 +49,24 @@ void Ennemi::RenderEnnemi(sf::RenderWindow &window) {
     window.draw(getSprite());
 }
 
-bool Ennemi::getIsnotReturn() {
-    return this->_isnotreturn;
-}
+
 
 const sf::Sprite &Ennemi::getSprite() const {
     return this->_EnnemieSprite;
 }
 
-void Ennemi::setIsnotReturn(bool isReturn) {
-    this->_isnotreturn = isReturn;
+void Ennemi::startClock() {
+    this->_clock.restart();
+}
+
+bool Ennemi::checkfordeath() {
+    if (_clock.getElapsedTime().asSeconds() >= _timeToDie) {
+        return true;
+    }
+
+    return false;
+}
+
+float Ennemi::getTimeEllapseds() {
+    return this->_clock.getElapsedTime().asSeconds();
 }

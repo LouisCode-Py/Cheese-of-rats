@@ -10,25 +10,26 @@
 
 class Ennemi {
 private:
-    sf::Time _timeToDie;
+    float _timeToDie;
+    sf::Clock _clock;
     sf::Texture _EnnemieTexture;
     sf::Sprite _EnnemieSprite;
     float _speed;
     float _x,_y;
     float _directionX,_directionY;
-    bool _isnotreturn;
 public:
     Ennemi(float speed,const sf::Texture& texture,const sf::Sprite& player);
 
     void setSpeed(float speed);
-    void setDirection(const sf::Sprite& player);
+    void setDirection(sf::Vector2f position);
     void setSpawn(const sf::CircleShape& spawn);
     void moveEnnemi();
     void setEnnemi(float x, float y);
     void RenderEnnemi(sf::RenderWindow& window);
-    bool getIsnotReturn();
+    void startClock();
+    bool checkfordeath();
     const sf::Sprite& getSprite() const;
-    void setIsnotReturn(bool isReturn);
+    float getTimeEllapseds();
 
 
 };

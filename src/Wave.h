@@ -1,6 +1,7 @@
-#include <queue>
+#include <vector>
 #include <random>
 #include "Ennemi.h"
+#include <SFML/System.hpp>
 
 #ifndef CMAKESFMLPROJECT_WAVE_H
 #define CMAKESFMLPROJECT_WAVE_H
@@ -9,7 +10,7 @@
 
 class Wave {
 private:
-    std::queue<Ennemi*> _ennemiQueue;
+    std::vector<Ennemi*> _ennemiQueue;
     float _spawnTime;
     std::default_random_engine _generator;
 public:
@@ -17,9 +18,9 @@ public:
     void setSpawnTime(float spawnTime);
     void setGenerator(std::default_random_engine generator);
     void makeTheQueue(float speed, const sf::Texture& texture, const sf::Sprite& player, float globalDifficulty);
-    std::queue<Ennemi*> PassQueue();
-    bool ifSpawnable();
-    ~Wave();
+    std::vector<Ennemi*> PassQueue();
+    bool ifSpawnable(sf::Clock& ennemiClock);
+   // ~Wave();
 };
 
 

@@ -21,7 +21,7 @@ private:
     sf::RenderWindow _window;
 
 public:
-    Player(const sf::Texture& texture);
+    Player(sf::Texture& texture);
 
     float getPositionX() const;
     float getPositionY() const;

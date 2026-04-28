@@ -4,7 +4,7 @@
 
 #include "Player.h"
 
-Player::Player( const sf::Texture& texture)
+Player::Player(sf::Texture& texture)
     : _playerSprite(texture)
 {
     _catNumber = 0;
@@ -18,6 +18,8 @@ float Player::getPositionX() const{
 float Player::getPositionY() const{
     return _playerSprite.getPosition().y;
 }
+
+
 
 const sf::Sprite &Player::getSprite() const {
     return this->_playerSprite;
