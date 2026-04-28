@@ -1,6 +1,5 @@
 #include "Ennemi.h"
 #include <cmath>
-#include <_mingw_mac.h>
 
 Ennemi::Ennemi(float speed, const sf::Texture& texture, const sf::Sprite& player) : _EnnemieSprite(texture)
 {
@@ -25,7 +24,7 @@ void Ennemi::setDirection(sf::Vector2f position) {
 void Ennemi::setSpawn(const sf::CircleShape &spawn) {
       this->_y = spawn.getPosition().y;
       this->_x = spawn.getPosition().x;
-        setEnnemi(spawn.getPosition().x,spawn.getPosition().y);
+        setEnnemy(spawn.getPosition().x,spawn.getPosition().y);
 
 }
 
@@ -34,25 +33,25 @@ void Ennemi::setSpeed(float speed) {
     this->_speed = speed;
 }
 
-void Ennemi::moveEnnemi() {
+void Ennemi::moveEnnemy() {
     float hypotenus = sqrt(pow(_directionX,2)+pow(_directionY,2));
-    this-> _EnnemieSprite.move({(_directionX)*_speed,(_directionY)*_speed});
+    this-> _ennemySprite.move({(_directionX)*_speed,(_directionY)*_speed});
 }
 
 
 
-void Ennemi::setEnnemi(float x, float y) {
-    _EnnemieSprite.setPosition({x,y});
+void Ennemi::setEnnemy(float x, float y) {
+    _ennemySprite.setPosition({x,y});
 }
 
-void Ennemi::RenderEnnemi(sf::RenderWindow &window) {
+void Ennemi::renderEnnemy(sf::RenderWindow &window) {
     window.draw(getSprite());
 }
 
 
 
 const sf::Sprite &Ennemi::getSprite() const {
-    return this->_EnnemieSprite;
+    return this->_ennemySprite;
 }
 
 void Ennemi::startClock() {
@@ -69,4 +68,8 @@ bool Ennemi::checkfordeath() {
 
 float Ennemi::getTimeEllapseds() {
     return this->_clock.getElapsedTime().asSeconds();
+}
+
+sf::FloatRect Ennemi::getGlobalBounds() {
+    return _ennemySprite.getGlobalBounds();
 }
