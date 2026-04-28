@@ -15,6 +15,7 @@ int main() {
 	sf::Texture cheeseT(ASSETS_PATH "rat_copy.PNG");
 	sf::Clock ennemiClock;
 	Player rat(texture);
+	sf::U8StringCharTraits::int_type health = rat.getHealth();
 	Ennemi* ennemy = new Ennemi(0.1f,cheeseT,rat.getSprite());
 	ennemy->setSpawn(s1);
 	bool isAlive = true;
@@ -31,11 +32,10 @@ int main() {
 
 
 		if (ennemy != nullptr) {
-			if(rat.getGlobalBounds().findIntersection(ennemy->getGlobalBounds()))
+			if(rat.playerGotHit(ennemy))
 			{
 				isAlive = false;
 				ennemy = nullptr;
-				std::cout << rat.reduceHealth() << '\n';
 			}
 		}
 
@@ -47,6 +47,7 @@ int main() {
 			ennemy->setDirection(rat.getSprite());
 			ennemy->moveEnnemy();
 		}
+		rat.displayHealth(window);
 		window.display();
 		rat.movePlayer();
 

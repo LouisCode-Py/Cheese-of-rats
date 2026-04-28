@@ -4,13 +4,19 @@
 
 #include "Player.h"
 
+
 Player::Player( const sf::Texture& texture)
-    : _playerSprite(texture)
+    : _playerSprite(texture),
+    _fonts(ASSETS_PATH "arial.ttf"),
+    _healthText(_fonts)
 {
     _playerPosition = {800.f,500.f};
     _playerSprite.setPosition(_playerPosition);
     _catNumber = 0;
     _healthPoints = 10;
+    _healthText.setCharacterSize(24);
+    _healthText.setFillColor(sf::Color::Green);
+    _healthText.setPosition({10.f, 10.f});
 }
 
 float Player::getPositionX() const{
@@ -60,4 +66,21 @@ sf::FloatRect Player::getGlobalBounds() const {
 int Player::reduceHealth() {
     _healthPoints -= 1;
     return _healthPoints;
+}
+
+bool Player::playerGotHit(Ennemi* ennemy) {
+    if (_playerSprite.getGlobalBounds().findIntersection(ennemy->getGlobalBounds())) {
+        this->reduceHealth();
+        return true;
+    }
+    return false;
+}
+
+int Player::getHealth() {
+    return _healthPoints;
+}
+
+void Player::displayHealth(sf::RenderWindow& window) {
+    _healthText.setString("Health: " + std::to_string(this->getHealth()));
+    window.draw(_healthText);
 }

@@ -8,11 +8,14 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/Graphics.hpp"
+#include "Ennemi.h"
 
 
 class Player {
   //  : public sf::Drawable
 private:
+    sf::Font _fonts;
+    sf::Text _healthText;
     sf::Texture _playerTexture;
     int _catNumber;
     sf::Vector2f _playerPosition;
@@ -33,6 +36,9 @@ public:
     sf::Vector2f getPlayerPosition() const;
     sf::FloatRect getGlobalBounds() const;
     int reduceHealth();
+    bool playerGotHit(Ennemi* ennemy);
+    int getHealth();
+    void displayHealth(sf::RenderWindow& window);
 };
 
 
