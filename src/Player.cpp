@@ -7,7 +7,7 @@
 
 Player::Player( sf::Texture& texture)
     : _playerSprite(texture),
-    _fonts(ASSETS_PATH "arial.ttf"),
+    _fonts(ASSETS_PATH "ARIAL.TTF"),
     _healthText(_fonts)
 {
     _playerPosition = {800.f,500.f};
@@ -17,14 +17,6 @@ Player::Player( sf::Texture& texture)
     _healthText.setCharacterSize(24);
     _healthText.setFillColor(sf::Color::Green);
     _healthText.setPosition({10.f, 10.f});
-}
-
-float Player::getPositionX() const{
-    return _playerSprite.getPosition().x;
-}
-
-float Player::getPositionY() const{
-    return _playerSprite.getPosition().y;
 }
 
 const sf::Sprite &Player::getSprite() const {

@@ -17,6 +17,7 @@ private:
     float _speed;
     float _x,_y;
     float _directionX,_directionY;
+    bool _isSpawn;
 public:
     Ennemi(float speed,const sf::Texture& texture,const sf::Sprite& player);
 
@@ -24,14 +25,16 @@ public:
     void setDirection(sf::Vector2f position);
     void setSpawn(const sf::CircleShape& spawn);
     void moveEnnemy();
-    void setEnnemy(float x, float y);
     void renderEnnemy(sf::RenderWindow& window);
     void startClock();
     bool checkfordeath();
     const sf::Sprite& getSprite() const;
     float getTimeEllapseds();
-
     sf::FloatRect getGlobalBounds();
+    void setclockToStop();
+    bool getIsSpawn();
+    void setIsSpawn(bool n);
+
 };
 
 

@@ -31,6 +31,10 @@ bool Wave::ifSpawnable(sf::Clock& ennemiClock) {
     return false;
 }
 
-std::vector<Ennemi *> Wave::PassQueue() {
-    return this-> _ennemiQueue;
+Ennemi* Wave::PassQueue(int n) {
+    return this-> _ennemiQueue[n];
+}
+
+size_t Wave::getQueuesize() {
+   return this->_ennemiQueue.size();
 }

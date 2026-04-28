@@ -18,8 +18,9 @@ public:
     void setSpawnTime(float spawnTime);
     void setGenerator(std::default_random_engine generator);
     void makeTheQueue(float speed, const sf::Texture& texture, const sf::Sprite& player, float globalDifficulty);
-    std::vector<Ennemi*> PassQueue();
+    Ennemi* PassQueue(int n);
     bool ifSpawnable(sf::Clock& ennemiClock);
+    size_t getQueuesize();
    // ~Wave();
 };
 

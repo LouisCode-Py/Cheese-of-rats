@@ -26,8 +26,6 @@ private:
 public:
     Player(sf::Texture& texture);
 
-    float getPositionX() const;
-    float getPositionY() const;
     const sf::Sprite& getSprite() const;
 
     void movePlayer();
