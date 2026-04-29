@@ -5,6 +5,7 @@
 #include "Ennemi.h"
 #include "Wave.h"
 #include <vector>
+#include <random>
 
 
 int main() {
@@ -14,14 +15,36 @@ int main() {
 	shape.setFillColor( sf::Color::Green );
 	sf::Texture texture(ASSETS_PATH "rat_copy.png");
 	sf::Texture cheeseT(ASSETS_PATH "cheese.png");
+	std::vector<sf::CircleShape> spawns;
 	sf::CircleShape s1(40.f);
-	s1.setPosition({400.f,400.f});
+	sf::CircleShape s2(40.f);
+	sf::CircleShape s3(40.f);
+	sf::CircleShape s4(40.f);
+	sf::CircleShape s5(40.f);
+	sf::CircleShape s6(40.f);
+	s1.setPosition({100.f,100.f});
+	s2.setPosition({1500.f,100.f});
+	s3.setPosition({100.f,500.f});
+	s4.setPosition({1500.f,500.f});
+	s5.setPosition({100.f,800.f});
+	s6.setPosition({1500.f,800.f});
+	spawns.push_back(s1);
+	spawns.push_back(s2);
+	spawns.push_back(s3);
+	spawns.push_back(s4);
+	spawns.push_back(s5);
+	spawns.push_back(s6);
+	std::default_random_engine generator;
+	std::uniform_int_distribution<int> distribution(0,5);
+	auto whichToSpawn = std::bind ( distribution, generator );
+
+
+
 	sf::Clock ennemiClock;
 	sf::Font font(ASSETS_PATH "arial.ttf");
 	sf::Text text(font);
 	Player rat(texture,font);
 	sf::Text textWave(font);
-	//sf::U8StringCharTraits::int_type health = rat.getHealth();
 	Wave wave(1.f);
 	int n = 0;
 	int n2 = 0;
@@ -65,9 +88,10 @@ int main() {
 		}
 
 		if (wave.ifSpawnable(ennemiClock) && n < waveEnnemy.size()) {
+			int result = whichToSpawn();
 			waveEnnemy[n]->setIsSpawn(true);
 			waveEnnemy[n]->startClock();
-			waveEnnemy[n]->setSpawn(s1);
+			waveEnnemy[n]->setSpawn(spawns[result]);
 			waveEnnemy[n]->setDirection(rat.getPlayerPosition());
 			n++;
 		}
@@ -121,8 +145,5 @@ int main() {
 		}
 		n = n2;
 		n2 = 0;
-		std::cout<< n << std::endl;
-
-
 	}
 }
