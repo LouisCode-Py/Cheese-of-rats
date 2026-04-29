@@ -3,3 +3,9 @@
 //
 
 #include "Abilities.h"
+
+Abilities::Abilities() {
+    _healthModifier = 0;
+    _sizeModifier = {0,0};
+    _speedModifier = 0;
+}

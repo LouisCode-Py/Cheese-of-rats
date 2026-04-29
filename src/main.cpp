@@ -21,7 +21,6 @@ int main() {
 	sf::Text text(font);
 	Player rat(texture,font);
 	sf::Text textWave(font);
-	//sf::U8StringCharTraits::int_type health = rat.getHealth();
 	Wave wave(1.f);
 	int n = 0;
 	int n2 = 0;
@@ -121,8 +120,5 @@ int main() {
 		}
 		n = n2;
 		n2 = 0;
-		std::cout<< n << std::endl;
-
-
 	}
 }
