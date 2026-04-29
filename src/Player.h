@@ -4,6 +4,7 @@
 
 #ifndef CMAKESFMLPROJECT_PLAYER_H
 #define CMAKESFMLPROJECT_PLAYER_H
+#include "Abilities.h"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Window/Keyboard.hpp"
@@ -11,9 +12,11 @@
 #include "Ennemi.h"
 
 
-class Player {
-  //  : public sf::Drawable
+class Player : public Abilities{
 private:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
+        target.draw(_playerSprite, states);
+    }
     sf::Font _font;
     sf::Text _healthText;
     sf::Texture _playerTexture;
@@ -21,10 +24,9 @@ private:
     sf::Vector2f _playerPosition;
     int _healthPoints;
     sf::Sprite _playerSprite;
-    sf::RenderWindow _window;
-
+    //sf::RenderWindow _window;
 public:
-    Player(sf::Texture& texture, sf::Font font);
+    Player(sf::Texture& texture, sf::Font font, sf::Texture& image);
 
     const sf::Sprite& getSprite() const;
 
@@ -37,6 +39,8 @@ public:
     bool playerGotHit(Ennemi* ennemy);
     int getHealth();
     void displayHealth(sf::RenderWindow& window);
+    float getSpeed() override;
+    sf::Vector2f getCurrentSize() override;
 };
 
 
