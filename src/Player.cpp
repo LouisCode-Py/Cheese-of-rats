@@ -7,7 +7,7 @@
 
 Player::Player( sf::Texture& texture)
     : _playerSprite(texture),
-    _fonts(ASSETS_PATH "ARIAL.TTF"),
+    _fonts(ASSETS_PATH "arial.ttf"),
     _healthText(_fonts)
 {
     _playerPosition = {800.f,500.f};

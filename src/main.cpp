@@ -12,17 +12,18 @@ int main() {
 	sf::RenderWindow window( sf::VideoMode( { 1600, 1000 } ), "SFML works!" );
 	sf::CircleShape shape( 40.f );
 	shape.setFillColor( sf::Color::Green );
-	sf::Texture texture("../../rat.png");
-	sf::Texture cheeseT("../../rat.png");
+	sf::Texture texture(ASSETS_PATH "rat_copy.PNG");
+	sf::Texture cheeseT(ASSETS_PATH "rat.png");
 	sf::CircleShape s1(40.f);
 	s1.setPosition({400.f,400.f});
 	sf::Clock ennemiClock;
-	sf::Font font("../../ARIAL.TTF");
+	sf::Font font(ASSETS_PATH "arial.ttf");
 	sf::Text text(font);
 	Player rat(texture);
 	//sf::U8StringCharTraits::int_type health = rat.getHealth();
 	Wave wave(1.f);
 	int n = 0;
+	bool iswavefinish = false;
 
 	std::vector<Ennemi*> waveEnnemy;
 	wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1);
