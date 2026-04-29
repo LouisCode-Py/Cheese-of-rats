@@ -21,6 +21,7 @@ public:
     Ennemi* PassQueue(int n);
     bool ifSpawnable(sf::Clock& ennemiClock);
     size_t getQueuesize();
+    void deleteQueue();
    // ~Wave();
 };
 
