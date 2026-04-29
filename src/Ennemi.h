@@ -35,6 +35,8 @@ public:
     bool getIsSpawn();
     void setIsSpawn(bool n);
 
+    void hitPlayer();
+
 };
 
 

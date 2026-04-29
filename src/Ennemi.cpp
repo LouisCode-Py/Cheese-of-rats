@@ -81,3 +81,7 @@ bool Ennemi::getIsSpawn() {
 void Ennemi::setIsSpawn(bool n) {
     this->_isSpawn = n;
 }
+
+void Ennemi::hitPlayer() {
+
+}

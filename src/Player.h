@@ -14,7 +14,7 @@
 class Player {
   //  : public sf::Drawable
 private:
-    sf::Font _fonts;
+    sf::Font _font;
     sf::Text _healthText;
     sf::Texture _playerTexture;
     int _catNumber;
@@ -24,7 +24,7 @@ private:
     sf::RenderWindow _window;
 
 public:
-    Player(sf::Texture& texture);
+    Player(sf::Texture& texture, sf::Font font);
 
     const sf::Sprite& getSprite() const;
 

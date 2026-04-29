@@ -5,10 +5,9 @@
 #include "Player.h"
 
 
-Player::Player( sf::Texture& texture)
+Player::Player( sf::Texture& texture, sf::Font font)
     : _playerSprite(texture),
-    _fonts(ASSETS_PATH "arial.ttf"),
-    _healthText(_fonts)
+    _healthText(font)
 {
     _playerPosition = {800.f,500.f};
     _playerSprite.setPosition(_playerPosition);
