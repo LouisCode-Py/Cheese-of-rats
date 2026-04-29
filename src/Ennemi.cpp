@@ -37,7 +37,7 @@ void Ennemi::setSpeed(float speed) {
 
 void Ennemi::moveEnnemy() {
     //float hypotenus = sqrt(pow(_directionX,2)+pow(_directionY,2)); eventuelemment
-    this-> _ennemySprite.move({(_directionX)*_speed,(_directionY)*_speed});
+    this-> _ennemySprite.move({(this->_directionX)*this->_speed,(this->_directionY)*this->_speed});
 }
 
 void Ennemi::renderEnnemy(sf::RenderWindow &window) {
@@ -55,7 +55,7 @@ void Ennemi::startClock() {
 }
 
 bool Ennemi::checkfordeath() {
-    if (_clock.getElapsedTime().asSeconds() >= _timeToDie) {
+    if (this->_clock.getElapsedTime().asSeconds() >= this->_timeToDie) {
         return true;
     }
 
@@ -67,7 +67,7 @@ float Ennemi::getTimeEllapseds() {
 }
 
 sf::FloatRect Ennemi::getGlobalBounds() {
-    return _ennemySprite.getGlobalBounds();
+    return this->_ennemySprite.getGlobalBounds();
 }
 
 void Ennemi::setclockToStop() {

@@ -23,7 +23,7 @@ void Wave::makeTheQueue(float speed, const sf::Texture& texture, const sf::Sprit
 }
 
 bool Wave::ifSpawnable(sf::Clock& ennemiClock) {
-    if (ennemiClock.getElapsedTime().asSeconds() >= _spawnTime) {
+    if (ennemiClock.getElapsedTime().asSeconds() >= this->_spawnTime) {
         ennemiClock.restart();
         return true;
     }
@@ -37,4 +37,9 @@ Ennemi* Wave::PassQueue(int n) {
 
 size_t Wave::getQueuesize() {
    return this->_ennemiQueue.size();
+}
+
+void Wave::deleteQueue() {
+    this->_ennemiQueue.clear();
+
 }

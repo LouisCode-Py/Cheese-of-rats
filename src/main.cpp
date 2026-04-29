@@ -19,11 +19,15 @@ int main() {
 	sf::Clock ennemiClock;
 	sf::Font font(ASSETS_PATH "arial.ttf");
 	sf::Text text(font);
+	sf::Text textWave(font);
 	Player rat(texture);
 	//sf::U8StringCharTraits::int_type health = rat.getHealth();
 	Wave wave(1.f);
 	int n = 0;
+	int n2 = 0;
+	int waves = 0;
 	bool iswavefinish = false;
+
 
 	std::vector<Ennemi*> waveEnnemy;
 	wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1);
@@ -46,7 +50,21 @@ int main() {
 
 		//game update
 
-		if (wave.ifSpawnable(ennemiClock)) {
+		textWave.setString("wave"+std::to_string(waves));
+		textWave.setPosition({200.f,50.f});
+		if (iswavefinish) {
+			wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1);
+			for (size_t i = 0; i < wave.getQueuesize();i++) {
+				waveEnnemy.push_back(wave.PassQueue(i));
+			}
+
+			for (size_t i = 0; i < waveEnnemy.size();i++) {
+				waveEnnemy[i]->setclockToStop();
+			}
+			iswavefinish = false;
+		}
+
+		if (wave.ifSpawnable(ennemiClock) && n < waveEnnemy.size()) {
 			waveEnnemy[n]->setIsSpawn(true);
 			waveEnnemy[n]->startClock();
 			waveEnnemy[n]->setSpawn(s1);
@@ -54,36 +72,55 @@ int main() {
 			n++;
 		}
 
-		auto it = waveEnnemy.begin();
-		for (size_t i=0; i < waveEnnemy.size();i++) {
+		if (!waveEnnemy.empty()) {
+			auto it = waveEnnemy.begin();
+			for (size_t i=0; i < waveEnnemy.size();i++) {
 
-			if (waveEnnemy[i]->checkfordeath()) {
-				waveEnnemy.erase(it);
-				n--;
+				if (waveEnnemy[i]->checkfordeath()) {
+					delete waveEnnemy[i];
+					it = waveEnnemy.erase(it);
+				}
+				std::advance(it,1);
 			}
-			std::advance(it,1);
 		}
-
 		window.clear();
 
 		//game render
-		for (size_t i = 0; i < waveEnnemy.size();i++) {
-			if (waveEnnemy[i]->getIsSpawn()) {
-				waveEnnemy[i]->renderEnnemy(window);
-				waveEnnemy[i]->moveEnnemy();
+		if (!waveEnnemy.empty()) {
+			for (size_t i = 0; i < waveEnnemy.size();i++) {
+				if (waveEnnemy[i]->getIsSpawn()) {
+					waveEnnemy[i]->renderEnnemy(window);
+					waveEnnemy[i]->moveEnnemy();
+				}
 			}
 		}
 		rat.renderPlayer(window);
 		rat.displayHealth(window);
+		window.draw(textWave);
 		window.display();
 
 		//move thing
 
 		rat.movePlayer();
 
+		if (waveEnnemy.empty()) {
+			waveEnnemy.clear();
+			iswavefinish = true;
+			wave.deleteQueue();
+			n = 0;
+			waves++;
+		}
 
-
+		for (size_t i = 0; i < waveEnnemy.size(); i++) {
+			if (waveEnnemy[i]->getIsSpawn()) {
+				n2++;
+			}
+		}
+		n = n2;
+		n2 = 0;
+		std::cout<< n << std::endl;
 
 
 	}
+
 }
