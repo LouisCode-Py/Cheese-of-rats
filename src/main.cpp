@@ -43,7 +43,7 @@ int main() {
 	sf::Clock ennemiClock;
 	sf::Font font(ASSETS_PATH "arial.ttf");
 	sf::Text text(font);
-	//ajouter sprite du fond d'ecran/abilitees
+	//ajouter sprite du fond d'ecran/abilitees + implementer window pour afficher le background
 	Player rat(texture,font,texture);
 	sf::Text textWave(font);
 	Wave wave(1.f);
