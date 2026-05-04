@@ -23,6 +23,10 @@ add_executable(main src/main.cpp
         src/Abilities.cpp
         src/Abilities.h
         src/Abilities.h
+        BigCheese.cpp
+        BigCheese.h
+        src/MiniCheese.cpp
+        src/MiniCheese.h
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

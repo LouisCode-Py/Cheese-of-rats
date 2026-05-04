@@ -9,7 +9,7 @@
 
 
 class Ennemi {
-private:
+protected:
     float _timeToDie;
     sf::Clock _clock;
     sf::Texture _ennemyTexture;
@@ -22,9 +22,9 @@ public:
     Ennemi(float speed,const sf::Texture& texture,const sf::Sprite& player);
 
     void setSpeed(float speed);
-    void setDirection(sf::Vector2f position);
-    void setSpawn(const sf::CircleShape& spawn);
-    void moveEnnemy();
+    virtual void setDirection(sf::Vector2f position);
+    virtual void setSpawn(const sf::CircleShape& spawn);
+    virtual void moveEnnemy();
     void renderEnnemy(sf::RenderWindow& window);
     void startClock();
     bool checkfordeath();
@@ -34,6 +34,7 @@ public:
     void setclockToStop();
     bool getIsSpawn();
     void setIsSpawn(bool n);
+    virtual void Deatheffect();
 
     void hitPlayer();
 

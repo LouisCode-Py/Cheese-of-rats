@@ -15,6 +15,7 @@ int main() {
 	shape.setFillColor( sf::Color::Green );
 	sf::Texture texture(ASSETS_PATH "rat_copy.png");
 	sf::Texture cheeseT(ASSETS_PATH "cheese.png");
+	sf::Texture backGround(ASSETS_PATH "cheesBackground.png");
 	std::vector<sf::CircleShape> spawns;
 	sf::CircleShape s1(40.f);
 	sf::CircleShape s2(40.f);
@@ -22,21 +23,28 @@ int main() {
 	sf::CircleShape s4(40.f);
 	sf::CircleShape s5(40.f);
 	sf::CircleShape s6(40.f);
+	sf::CircleShape s7(40.f);
 	s1.setPosition({100.f,100.f});
 	s2.setPosition({1500.f,100.f});
 	s3.setPosition({100.f,500.f});
 	s4.setPosition({1500.f,500.f});
 	s5.setPosition({100.f,800.f});
 	s6.setPosition({1500.f,800.f});
+	s7.setPosition({100.f,600.f});
 	spawns.push_back(s1);
 	spawns.push_back(s2);
 	spawns.push_back(s3);
 	spawns.push_back(s4);
 	spawns.push_back(s5);
 	spawns.push_back(s6);
+	spawns.push_back(s7);
 	std::default_random_engine generator;
-	std::uniform_int_distribution<int> distribution(0,5);
+	std::uniform_int_distribution<int> distribution(0,6);
 	auto whichToSpawn = std::bind ( distribution, generator );
+	sf::Sprite backSprite(backGround);
+	sf::Vector2u textureSize = backGround.getSize();
+	sf::Vector2u windowSize = window.getSize();
+	backSprite.setScale({static_cast<float>(windowSize.x) / textureSize.x,static_cast<float>(windowSize.y) / textureSize.y});
 
 
 
@@ -45,7 +53,7 @@ int main() {
 	sf::Text text(font);
 	Player rat(texture,font);
 	sf::Text textWave(font);
-	Wave wave(1.f);
+	Wave wave(0.1f);
 	int n = 0;
 	int n2 = 0;
 	int waves = 0;
@@ -113,6 +121,7 @@ int main() {
 		window.clear();
 
 		//game render
+		window.draw(backSprite);
 		if (!waveEnnemy.empty()) {
 			for (size_t i = 0; i < waveEnnemy.size();i++) {
 				if (waveEnnemy[i]->getIsSpawn()) {

@@ -15,7 +15,7 @@ void Wave::setGenerator(std::default_random_engine generator) {
 }
 
 void Wave::makeTheQueue(float speed, const sf::Texture& texture, const sf::Sprite& player,float globalDifficulty) {
-    std::uniform_int_distribution distribution(5,10);
+    std::uniform_int_distribution distribution(50,100);
     int numberOfEnnemi = distribution(this->_generator);
     for (int i = 0; i<numberOfEnnemi;i++) {
         this->_ennemiQueue.push_back(new Ennemi(speed,texture,player));
