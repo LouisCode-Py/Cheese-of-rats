@@ -5,8 +5,9 @@
 #include "Player.h"
 
 
-Player::Player( sf::Texture& texture, sf::Font font)
-    : _playerSprite(texture),
+Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
+    : Abilities(image),
+    _playerSprite(texture),
     _healthText(font)
 {
     _playerPosition = {800.f,500.f};
@@ -74,4 +75,12 @@ int Player::getHealth() {
 void Player::displayHealth(sf::RenderWindow& window) {
     _healthText.setString("Health: " + std::to_string(this->getHealth()));
     window.draw(_healthText);
+}
+
+sf::Vector2f Player::getCurrentSize() {
+    return _sizeModifier;
+}
+
+float Player::getSpeed() {
+    return _speedModifier;
 }
