@@ -23,8 +23,8 @@ add_executable(main src/main.cpp
         src/Abilities.cpp
         src/Abilities.h
         src/Abilities.h
-        BigCheese.cpp
-        BigCheese.h
+        src/BigCheese.cpp
+        src/BigCheese.h
         src/MiniCheese.cpp
         src/MiniCheese.h
 )

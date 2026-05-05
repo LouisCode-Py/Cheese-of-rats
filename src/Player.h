@@ -41,6 +41,7 @@ public:
     void displayHealth(sf::RenderWindow& window);
     float getSpeed() override;
     sf::Vector2f getCurrentSize() override;
+    bool isDead();
 };
 
 

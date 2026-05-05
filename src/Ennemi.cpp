@@ -85,3 +85,7 @@ void Ennemi::setIsSpawn(bool n) {
 void Ennemi::hitPlayer() {
 
 }
+
+void Ennemi::deatheffect(float speed, const sf::Texture &texture, const sf::Sprite &player) {
+
+}

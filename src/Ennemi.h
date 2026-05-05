@@ -34,7 +34,8 @@ public:
     void setclockToStop();
     bool getIsSpawn();
     void setIsSpawn(bool n);
-    virtual void Deatheffect();
+
+    virtual void deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player);
 
     void hitPlayer();
 

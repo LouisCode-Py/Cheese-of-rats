@@ -6,7 +6,7 @@
 #include "Wave.h"
 #include <vector>
 #include <random>
-
+#include <fstream>
 
 int main() {
 
@@ -59,6 +59,7 @@ int main() {
 	int n2 = 0;
 	int waves = 0;
 	bool iswavefinish = false;
+	int timeElapsed = 0;
 
 
 	std::vector<Ennemi*> waveEnnemy;
@@ -155,5 +156,16 @@ int main() {
 		}
 		n = n2;
 		n2 = 0;
+
+		if (rat.isDead()) {
+			std::ofstream writer(ASSETS_PATH "savedData.csv");
+			if (writer.is_open()) {
+				writer << "Waved survived :" << waves << '\n';
+				writer << "Time elapsed : " << timeElapsed << '\n';
+				writer.close();
+			}
+			break;
+		}
+		timeElapsed++;
 	}
 }
