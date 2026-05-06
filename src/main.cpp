@@ -9,8 +9,7 @@
 #include <fstream>
 
 int main() {
-
-	sf::RenderWindow window( sf::VideoMode( { 1600, 1000 } ), "SFML works!" );
+	sf::RenderWindow window( sf::VideoMode( { 1600, 1000 } ), "Labyrinth of STL" );
 	sf::CircleShape shape( 40.f );
 	shape.setFillColor( sf::Color::Green );
 	sf::Texture texture(ASSETS_PATH "rat_copy.png");
@@ -158,14 +157,22 @@ int main() {
 		n2 = 0;
 
 		if (rat.isDead()) {
-			std::ofstream writer(ASSETS_PATH "savedData.csv");
-			if (writer.is_open()) {
-				writer << "Waved survived :" << waves << '\n';
-				writer << "Time elapsed : " << timeElapsed << '\n';
-				writer.close();
-			}
-			break;
+			rat.saveData(waves,timeElapsed);
+			window.close();
 		}
 		timeElapsed++;
+	}
+
+	sf::RenderWindow resultsWindow( sf::VideoMode( { 1600, 1000 } ), "Results" );
+	while ( resultsWindow.isOpen() )
+	{
+		while ( const std::optional event = window.pollEvent() )
+		{
+			if ( event->is<sf::Event::Closed>() )
+				window.close();
+		}
+
+		window.clear();
+		window.draw(shape);
 	}
 }

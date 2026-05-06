@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include <fstream>
 
 
 Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
@@ -90,5 +91,14 @@ bool Player::isDead() {
         return true;
     } else {
         return false;
+    }
+}
+
+void Player::saveData(int waves, int timeElapsed) {
+    std::ofstream writer(ASSETS_PATH "savedData.csv");
+    if (writer.is_open()) {
+        writer << "Waved survived :" << waves << '\n';
+        writer << "Time elapsed : " << timeElapsed << '\n';
+        writer.close();
     }
 }

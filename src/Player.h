@@ -42,6 +42,7 @@ public:
     float getSpeed() override;
     sf::Vector2f getCurrentSize() override;
     bool isDead();
+    void saveData(int waves, int timeElapsed);
 };
 
 
