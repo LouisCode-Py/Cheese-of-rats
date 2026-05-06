@@ -7,13 +7,13 @@
 Abilities::Abilities(sf::Texture& image)
     : _image(image)
 {
-    _healthModifier = 0;
-    _sizeModifier = {0,0};
-    _speedModifier = 0;
+    _healthModifier = 0.f;
+    _sizeModifier = {0.f,0.f};
+    _speedModifier = 0.f;
 }
 
 float Abilities::selectSpeed() {
-    _speedModifier += 0.001;
+    _speedModifier += 0.001f;
     return _speedModifier;
 }
 

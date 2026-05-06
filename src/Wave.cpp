@@ -1,6 +1,5 @@
 #include "Wave.h"
 #include <random>
-#include <_mingw_mac.h>
 
 Wave::Wave(float spawnTime) {
     setSpawnTime(spawnTime);
