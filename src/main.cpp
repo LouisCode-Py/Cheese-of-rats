@@ -7,6 +7,7 @@
 #include <vector>
 #include <random>
 #include <fstream>
+#include <chrono>
 
 int main() {
 	sf::RenderWindow window( sf::VideoMode( { 1600, 1000 } ), "Labyrinth of STL" );
@@ -58,7 +59,6 @@ int main() {
 	int n2 = 0;
 	int waves = 0;
 	bool iswavefinish = false;
-	int timeElapsed = 0;
 
 
 	std::vector<Ennemi*> waveEnnemy;
@@ -71,6 +71,7 @@ int main() {
 		waveEnnemy[i]->setclockToStop();
 	}
 
+	auto start = std::chrono::high_resolution_clock::now();
 
 	while ( window.isOpen() )
 	{
@@ -157,22 +158,24 @@ int main() {
 		n2 = 0;
 
 		if (rat.isDead()) {
-			rat.saveData(waves,timeElapsed);
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<float> elapsed = end - start;
+			rat.saveData(waves,elapsed);
 			window.close();
 		}
-		timeElapsed++;
 	}
 
 	sf::RenderWindow resultsWindow( sf::VideoMode( { 1600, 1000 } ), "Results" );
 	while ( resultsWindow.isOpen() )
 	{
-		while ( const std::optional event = window.pollEvent() )
+		while ( const std::optional event = resultsWindow.pollEvent() )
 		{
 			if ( event->is<sf::Event::Closed>() )
-				window.close();
+				resultsWindow.close();
 		}
 
-		window.clear();
-		window.draw(shape);
+		resultsWindow.clear();
+		resultsWindow.draw(shape);
+		resultsWindow.display();
 	}
 }

@@ -27,6 +27,10 @@ add_executable(main src/main.cpp
         src/BigCheese.h
         src/MiniCheese.cpp
         src/MiniCheese.h
+        src/CSVParser.cpp
+        src/CSVParser.h
+        src/Parser.cpp
+        src/fonctions.cpp
 )
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

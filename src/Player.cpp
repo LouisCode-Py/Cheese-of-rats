@@ -4,6 +4,7 @@
 
 #include "Player.h"
 #include <fstream>
+#include <chrono>
 
 
 Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
@@ -94,11 +95,19 @@ bool Player::isDead() {
     }
 }
 
-void Player::saveData(int waves, int timeElapsed) {
+void Player::saveData(int waves, std::chrono::duration<float> timeElapsed) {
+    //check for old data copy and paste in file -- not done
+    std::ifstream reader(ASSETS_PATH "savedData.csv");
+    if (reader.is_open()) {
+        std::string content, line;
+        while (std::getline(reader, line)) {
+            content += line + "\n";
+        }
+    }
     std::ofstream writer(ASSETS_PATH "savedData.csv");
     if (writer.is_open()) {
-        writer << "Waved survived :" << waves << '\n';
-        writer << "Time elapsed : " << timeElapsed << '\n';
+        writer << "Waved survived: " << waves << '\n';
+        writer << "Time elapsed: " << timeElapsed.count() << '\n';
         writer.close();
     }
 }

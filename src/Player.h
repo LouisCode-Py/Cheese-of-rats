@@ -10,6 +10,7 @@
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/Graphics.hpp"
 #include "Ennemi.h"
+#include <chrono>
 
 
 class Player : public Abilities{
@@ -42,7 +43,7 @@ public:
     float getSpeed() override;
     sf::Vector2f getCurrentSize() override;
     bool isDead();
-    void saveData(int waves, int timeElapsed);
+    void saveData(int waves, std::chrono::duration<float> timeElapsed);
 };
 
 
