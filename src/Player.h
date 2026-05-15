@@ -22,6 +22,7 @@ private:
     sf::Font _font;
     sf::Text _healthText;
     sf::Text _scoreText;
+    sf::Text _quitText;
     sf::Texture _playerTexture;
     int _catNumber;
     sf::Vector2f _playerPosition;
@@ -47,6 +48,7 @@ public:
     sf::Vector2f getCurrentSize() override;
     bool isDead();
     void saveData(int waves, std::chrono::duration<float> timeElapsed);
+    void quit(sf::RenderWindow& window);
 };
 
 

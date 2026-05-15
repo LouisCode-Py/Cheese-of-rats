@@ -11,7 +11,8 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     : Abilities(image),
     _playerSprite(texture),
     _healthText(font),
-    _scoreText(font)
+    _scoreText(font),
+    _quitText(font)
 {
     _playerPosition = {800.f,500.f};
     _playerSprite.setPosition(_playerPosition);
@@ -20,6 +21,8 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     _healthText.setCharacterSize(24);
     _healthText.setFillColor(sf::Color::Green);
     _healthText.setPosition({10.f, 10.f});
+    _quitText.setFillColor(sf::Color::Red);
+    _quitText.setPosition({1400.f,950.f});
 }
 
 const sf::Sprite &Player::getSprite() const {
@@ -139,4 +142,9 @@ void Player::displayStats(sf::RenderWindow& resultsWindow) {
     std::string content, line;
     _scoreText.setString(this->_ss.str());
     resultsWindow.draw(_scoreText);
+}
+
+void Player::quit(sf::RenderWindow& window) {
+    _quitText.setString("Press Q to quit");
+    window.draw(_quitText);
 }

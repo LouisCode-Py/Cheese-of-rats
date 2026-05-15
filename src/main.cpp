@@ -59,6 +59,7 @@ int main() {
 	int n2 = 0;
 	int waves = 0;
 	bool iswavefinish = false;
+	bool isDisplayed = false;
 
 
 	std::vector<Ennemi*> waveEnnemy;
@@ -161,21 +162,22 @@ int main() {
 			auto end = std::chrono::high_resolution_clock::now();
 			std::chrono::duration<float> elapsed = end - start;
 			rat.saveData(waves,elapsed);
+
+			while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
+			{
+				while (const std::optional event = window.pollEvent()) {
+					if (event->is<sf::Event::Closed>())
+						window.close();
+				}
+				if (!isDisplayed) {
+					window.clear();
+					rat.quit(window);
+					rat.displayStats(window);
+					window.display();
+					isDisplayed = true;
+				}
+			}
 			window.close();
 		}
-	}
-
-	sf::RenderWindow resultsWindow( sf::VideoMode( { 1600, 1000 } ), "Results" );
-	while ( resultsWindow.isOpen() )
-	{
-		while ( const std::optional event = resultsWindow.pollEvent() )
-		{
-			if ( event->is<sf::Event::Closed>() )
-				resultsWindow.close();
-		}
-
-		resultsWindow.clear();
-		rat.displayStats(resultsWindow);
-		resultsWindow.display();
 	}
 }
