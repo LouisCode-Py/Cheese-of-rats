@@ -175,7 +175,7 @@ int main() {
 		}
 
 		resultsWindow.clear();
-		resultsWindow.draw(shape);
+		rat.displayStats(resultsWindow);
 		resultsWindow.display();
 	}
 }

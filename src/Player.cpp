@@ -10,7 +10,8 @@
 Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     : Abilities(image),
     _playerSprite(texture),
-    _healthText(font)
+    _healthText(font),
+    _scoreText(font)
 {
     _playerPosition = {800.f,500.f};
     _playerSprite.setPosition(_playerPosition);
@@ -31,13 +32,13 @@ void Player::renderPlayer( sf::RenderWindow& window) {
 
 void Player::movePlayer() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({0.1f,0.1f});
+        _playerSprite.move({0.05f,0.05f});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-0.1f,0.1f});
+        _playerSprite.move({-0.05f,0.05f});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-0.1f,-0.1f});
+        _playerSprite.move({-0.05f,-0.05f});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({0.1f,-0.1f});
+        _playerSprite.move({0.05f,-0.05f});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
         _playerSprite.move({0.f,-0.1f});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
@@ -96,18 +97,46 @@ bool Player::isDead() {
 }
 
 void Player::saveData(int waves, std::chrono::duration<float> timeElapsed) {
-    //check for old data copy and paste in file -- not done
+
     std::ifstream reader(ASSETS_PATH "savedData.csv");
+    std::string content, line;
+    bool empty = true;
     if (reader.is_open()) {
-        std::string content, line;
+        empty = false;
+        std::getline(reader, line);
         while (std::getline(reader, line)) {
-            content += line + "\n";
+            if (line == "Past game scores:") {
+
+            } else {
+                content += line + "\n";
+            }
         }
     }
     std::ofstream writer(ASSETS_PATH "savedData.csv");
     if (writer.is_open()) {
+        writer << "Current score:" << '\n';
         writer << "Waved survived: " << waves << '\n';
         writer << "Time elapsed: " << timeElapsed.count() << '\n';
+        if (!empty) {
+            writer << "Past game scores:" << '\n';
+            writer << content;
+        }
         writer.close();
     }
+    std::ifstream reader2(ASSETS_PATH "savedData.csv");
+    std::string content2, line2;
+    if (reader2.is_open()) {
+        std::getline(reader2, line2);
+        while (std::getline(reader2, line2)) {
+            content2 += line2 + "\n";
+        }
+        _ss << content2;
+    }
+}
+
+void Player::displayStats(sf::RenderWindow& resultsWindow) {
+    std::ifstream reader(ASSETS_PATH "savedData.csv");
+    std::string content, line;
+    _scoreText.setString(this->_ss.str());
+    resultsWindow.draw(_scoreText);
 }

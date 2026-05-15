@@ -20,12 +20,13 @@ private:
     }
     sf::Font _font;
     sf::Text _healthText;
+    sf::Text _scoreText;
     sf::Texture _playerTexture;
     int _catNumber;
     sf::Vector2f _playerPosition;
     int _healthPoints;
     sf::Sprite _playerSprite;
-    //sf::RenderWindow _window;
+    std::stringstream _ss;
 public:
     Player(sf::Texture& texture, sf::Font font, sf::Texture& image);
 
@@ -40,6 +41,7 @@ public:
     bool playerGotHit(Ennemi* ennemy);
     int getHealth();
     void displayHealth(sf::RenderWindow& window);
+    void displayStats(sf::RenderWindow& resultsWindow);
     float getSpeed() override;
     sf::Vector2f getCurrentSize() override;
     bool isDead();
