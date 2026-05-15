@@ -30,6 +30,7 @@ private:
     int _catNumber;
     sf::Vector2f _playerPosition;
     int _healthPoints;
+    int _maxHealthPoints;
     sf::Sprite _playerSprite;
     std::stringstream _ss;
 public:
@@ -45,6 +46,7 @@ public:
     int reduceHealth();
     bool playerGotHit(Ennemi* ennemy);
     int getHealth();
+    int getMaxHealth();
     void displayHealth(sf::RenderWindow& window);
     void displayStats(sf::RenderWindow& resultsWindow);
     float getSpeed() override;

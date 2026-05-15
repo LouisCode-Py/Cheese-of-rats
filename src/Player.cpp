@@ -18,7 +18,8 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     _playerPosition = {800.f,500.f};
     _playerSprite.setPosition(_playerPosition);
     _catNumber = 0;
-    _healthPoints = 50;
+    _healthPoints = 30;
+    _maxHealthPoints = _healthPoints;
     _healthText.setCharacterSize(24);
     _healthText.setFillColor(sf::Color::Green);
     _healthText.setPosition({10.f, 10.f});
@@ -162,5 +163,9 @@ void Player::displayHealth(sf::RenderWindow& window) {
 }
 
 void Player::addHealth() {
-    this->_healthPoints += 10;
+    this->_healthPoints = _maxHealthPoints;
+}
+
+int Player::getMaxHealth() {
+    return this->_maxHealthPoints;
 }
