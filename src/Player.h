@@ -11,6 +11,7 @@
 #include "SFML/Graphics.hpp"
 #include "Ennemi.h"
 #include <chrono>
+#include <sstream>
 
 
 class Player : public Abilities{
