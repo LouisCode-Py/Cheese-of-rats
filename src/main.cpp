@@ -60,7 +60,7 @@ int main() {
 	int waves = 0;
 	bool iswavefinish = false;
 	bool isDisplayed = false;
-
+	//window.setFramerateLimit(60);
 
 	std::vector<Ennemi*> waveEnnemy;
 	wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1);
@@ -135,6 +135,7 @@ int main() {
 		}
 		rat.renderPlayer(window);
 		rat.displayHealth(window);
+		rat.renderMoney(window);
 		window.draw(textWave);
 		window.display();
 
@@ -148,6 +149,8 @@ int main() {
 			wave.deleteQueue();
 			n = 0;
 			waves++;
+			rat.addMoney();
+			rat.addHealth();
 		}
 
 		for (size_t i = 0; i < waveEnnemy.size(); i++) {

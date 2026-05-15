@@ -19,6 +19,9 @@ private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
         target.draw(_playerSprite, states);
     }
+
+    sf::Text _catNumberText;
+
     sf::Font _font;
     sf::Text _healthText;
     sf::Text _scoreText;
@@ -49,6 +52,9 @@ public:
     bool isDead();
     void saveData(int waves, std::chrono::duration<float> timeElapsed);
     void quit(sf::RenderWindow& window);
+    void renderMoney(sf::RenderWindow& window);
+    void addMoney();
+    void addHealth();
 };
 
 

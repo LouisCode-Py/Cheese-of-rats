@@ -12,7 +12,8 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     _playerSprite(texture),
     _healthText(font),
     _scoreText(font),
-    _quitText(font)
+    _quitText(font),
+    _catNumberText(font)
 {
     _playerPosition = {800.f,500.f};
     _playerSprite.setPosition(_playerPosition);
@@ -23,6 +24,8 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     _healthText.setPosition({10.f, 10.f});
     _quitText.setFillColor(sf::Color::Red);
     _quitText.setPosition({1400.f,950.f});
+    _catNumberText.setFillColor(sf::Color::Red);
+    _catNumberText.setPosition({1400.f,950.f});
 }
 
 const sf::Sprite &Player::getSprite() const {
@@ -76,11 +79,6 @@ bool Player::playerGotHit(Ennemi* ennemy) {
 
 int Player::getHealth() {
     return _healthPoints;
-}
-
-void Player::displayHealth(sf::RenderWindow& window) {
-    _healthText.setString("Health: " + std::to_string(this->getHealth()));
-    window.draw(_healthText);
 }
 
 sf::Vector2f Player::getCurrentSize() {
@@ -147,4 +145,22 @@ void Player::displayStats(sf::RenderWindow& resultsWindow) {
 void Player::quit(sf::RenderWindow& window) {
     _quitText.setString("Press Q to quit");
     window.draw(_quitText);
+}
+
+void Player::renderMoney(sf::RenderWindow &window) {
+    _catNumberText.setString("Cat money : " + std::to_string(this->_catNumber));
+    window.draw(_catNumberText);
+}
+
+void Player::addMoney() {
+    this->_catNumber++;
+}
+
+void Player::displayHealth(sf::RenderWindow& window) {
+    _healthText.setString("Health: " + std::to_string(this->getHealth()));
+    window.draw(_healthText);
+}
+
+void Player::addHealth() {
+    this->_healthPoints += 10;
 }
