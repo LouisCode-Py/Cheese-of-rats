@@ -65,6 +65,8 @@ int main() {
 	int n2 = 0;
 	int waves = 0;
 	bool iswavefinish = false;
+	bool isDisplayed = false;
+	//window.setFramerateLimit(60);
 	std::queue<std::vector<Object*>> listofObject;
 	sf::Vector2f objectPositions[] = {{297.4f,580.f},{476.8f,530.f},{636.8f,490.f},{816.53f,480.f},};
 
@@ -111,6 +113,7 @@ int main() {
 			// 	for (size_t i = 0; i < waveEnnemy.size();i++) {
 			// 		waveEnnemy[i]->setclockToStop();
 			// 	}
+			//		iswavefinish = false;
 			// }
 
 			if (wave.ifSpawnable(ennemiClock) && n < waveEnnemy.size()) {
@@ -138,32 +141,35 @@ int main() {
 
 			window.clear();
 
-			//game render
-			window.draw(backSprite);
-			if (!waveEnnemy.empty()) {
-				for (size_t i = 0; i < waveEnnemy.size();i++) {
-					if (waveEnnemy[i]->getIsSpawn()) {
-						waveEnnemy[i]->renderEnnemy(window);
-						waveEnnemy[i]->moveEnnemy();
-					}
+		//game render
+		window.draw(backSprite);
+		if (!waveEnnemy.empty()) {
+			for (size_t i = 0; i < waveEnnemy.size();i++) {
+				if (waveEnnemy[i]->getIsSpawn()) {
+					waveEnnemy[i]->renderEnnemy(window);
+					waveEnnemy[i]->moveEnnemy();
 				}
 			}
-			rat.renderPlayer(window);
-			rat.displayHealth(window);
-			window.draw(textWave);
-			window.display();
+		}
+		rat.renderPlayer(window);
+		rat.displayHealth(window);
+		rat.renderMoney(window);
+		window.draw(textWave);
+		window.display();
 
 			//move thing
 
 			rat.movePlayer();
 
-			if (waveEnnemy.empty()) {
-				waveEnnemy.clear();
-				iswavefinish = true;
-				wave.deleteQueue();
-				n = 0;
-				waves++;
-			}
+		if (waveEnnemy.empty()) {
+			waveEnnemy.clear();
+			iswavefinish = true;
+			wave.deleteQueue();
+			n = 0;
+			waves++;
+			rat.addMoney();
+			rat.addHealth();
+		}
 
 			for (size_t i = 0; i < waveEnnemy.size(); i++) {
 				if (waveEnnemy[i]->getIsSpawn()) {
@@ -173,13 +179,32 @@ int main() {
 			n = n2;
 			n2 = 0;
 
-			if (rat.isDead()) {
-				auto end = std::chrono::high_resolution_clock::now();
-				std::chrono::duration<float> elapsed = end - start;
-				rat.saveData(waves,elapsed);
-				window.close();
+		if (rat.isDead()) {
+			auto end = std::chrono::high_resolution_clock::now();
+			std::chrono::duration<float> elapsed = end - start;
+			rat.saveData(waves,elapsed);
+
+			while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
+			{
+				while (const std::optional event = window.pollEvent()) {
+					if (event->is<sf::Event::Closed>())
+						window.close();
+				}
+				if (!isDisplayed) {
+					window.clear();
+					rat.quit(window);
+					rat.displayStats(window);
+					window.display();
+					isDisplayed = true;
+				}
 			}
+			window.close();
 		}
+
+		resultsWindow.clear();
+		rat.displayStats(resultsWindow);
+		resultsWindow.display();
+	}
 		sf::Clock clocktime;
 		for (size_t i = 0; i < listofObject.front().size(); i++) {
 			listofObject.front()[i]->setPosition(objectPositions[i]);
@@ -214,21 +239,5 @@ int main() {
 				clocktime.restart();
 			}
 		}
-	}
-	sf::RenderWindow resultsWindow( sf::VideoMode( { 1600, 1000 } ), "Results" );
-	while ( resultsWindow.isOpen() )
-	{
-		while ( const std::optional event = resultsWindow.pollEvent() )
-		{
-			if ( event->is<sf::Event::Closed>() )
-				resultsWindow.close();
-		}
-
-		resultsWindow.clear();
-		rat.displayStats(resultsWindow);
-		resultsWindow.display();
-
-
-
 	}
 }

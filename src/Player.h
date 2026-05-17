@@ -21,13 +21,18 @@ private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const{
         target.draw(_playerSprite, states);
     }
+
+    sf::Text _catNumberText;
+
     sf::Font _font;
     sf::Text _healthText;
     sf::Text _scoreText;
+    sf::Text _quitText;
     sf::Texture _playerTexture;
     int _catNumber;
     sf::Vector2f _playerPosition;
     int _healthPoints;
+    int _maxHealthPoints;
     sf::Sprite _playerSprite;
     std::stringstream _ss;
     std::vector<Object*> _object;
@@ -45,12 +50,17 @@ public:
     int reduceHealth();
     bool playerGotHit(Ennemi* ennemy);
     int getHealth();
+    int getMaxHealth();
     void displayHealth(sf::RenderWindow& window);
     void displayStats(sf::RenderWindow& resultsWindow);
     // float getSpeed();
     // sf::Vector2f getCurrentSize();
     bool isDead();
     void saveData(int waves, std::chrono::duration<float> timeElapsed);
+    void quit(sf::RenderWindow& window);
+    void renderMoney(sf::RenderWindow& window);
+    void addMoney();
+    void addHealth();
     void pushObject(Object* object);
     int getCats();
 };

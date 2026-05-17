@@ -11,15 +11,22 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     : _playerTexture(image),
     _playerSprite(texture),
     _healthText(font),
-    _scoreText(font)
+    _scoreText(font),
+    _quitText(font),
+    _catNumberText(font)
 {
     _playerPosition = {800.f,500.f};
     _playerSprite.setPosition(_playerPosition);
     _catNumber = 0;
-    _healthPoints = 50;
+    _healthPoints = 30;
+    _maxHealthPoints = _healthPoints;
     _healthText.setCharacterSize(24);
     _healthText.setFillColor(sf::Color::Green);
     _healthText.setPosition({10.f, 10.f});
+    _quitText.setFillColor(sf::Color::Red);
+    _quitText.setPosition({1400.f,950.f});
+    _catNumberText.setFillColor(sf::Color::Red);
+    _catNumberText.setPosition({1400.f,950.f});
 }
 
 const sf::Sprite &Player::getSprite() const {
@@ -147,4 +154,32 @@ void Player::displayStats(sf::RenderWindow& resultsWindow) {
 
 int Player::getCats() {
     return this->_catNumber;
+}
+
+
+void Player::quit(sf::RenderWindow& window) {
+    _quitText.setString("Press Q to quit");
+    window.draw(_quitText);
+}
+
+void Player::renderMoney(sf::RenderWindow &window) {
+    _catNumberText.setString("Cat money : " + std::to_string(this->_catNumber));
+    window.draw(_catNumberText);
+}
+
+void Player::addMoney(double globalModifier) {
+    this->_catNumber =+ 10 + round(1*globalModifier);
+}
+
+void Player::displayHealth(sf::RenderWindow& window) {
+    _healthText.setString("Health: " + std::to_string(this->getHealth()));
+    window.draw(_healthText);
+}
+
+void Player::addHealth() {
+    this->_healthPoints = _maxHealthPoints;
+}
+
+int Player::getMaxHealth() {
+    return this->_maxHealthPoints;
 }
