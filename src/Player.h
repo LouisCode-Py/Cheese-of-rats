@@ -10,13 +10,15 @@
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/Graphics.hpp"
 #include "Ennemi.h"
+#include <vector>
 #include <chrono>
 #include <sstream>
+#include "Object.h"
 
 
-class Player : public Abilities{
+class Player{
 private:
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const{
         target.draw(_playerSprite, states);
     }
     sf::Font _font;
@@ -28,6 +30,7 @@ private:
     int _healthPoints;
     sf::Sprite _playerSprite;
     std::stringstream _ss;
+    std::vector<Object*> _object;
 public:
     Player(sf::Texture& texture, sf::Font font, sf::Texture& image);
 
@@ -38,15 +41,18 @@ public:
 
     sf::Vector2f getPlayerPosition() const;
     sf::FloatRect getGlobalBounds() const;
+
     int reduceHealth();
     bool playerGotHit(Ennemi* ennemy);
     int getHealth();
     void displayHealth(sf::RenderWindow& window);
     void displayStats(sf::RenderWindow& resultsWindow);
-    float getSpeed() override;
-    sf::Vector2f getCurrentSize() override;
+    // float getSpeed();
+    // sf::Vector2f getCurrentSize();
     bool isDead();
     void saveData(int waves, std::chrono::duration<float> timeElapsed);
+    void pushObject(Object* object);
+    int getCats();
 };
 
 

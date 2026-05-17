@@ -39,6 +39,13 @@ size_t Wave::getQueuesize() {
 }
 
 void Wave::deleteQueue() {
+    // for (size_t i = 0;i < _ennemiQueue.size();i++) {
+    //     delete this->_ennemiQueue[1];
+    // }
+
     this->_ennemiQueue.clear();
 
 }
+
+// Wave::~Wave(){
+// }

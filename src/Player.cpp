@@ -8,7 +8,7 @@
 
 
 Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
-    : Abilities(image),
+    : _playerTexture(image),
     _playerSprite(texture),
     _healthText(font),
     _scoreText(font)
@@ -80,12 +80,16 @@ void Player::displayHealth(sf::RenderWindow& window) {
     window.draw(_healthText);
 }
 
-sf::Vector2f Player::getCurrentSize() {
-    return _sizeModifier;
-}
+// sf::Vector2f Player::getCurrentSize() {
+//     return _sizeModifier;
+// }
+//
+// float Player::getSpeed() {
+//     return _speedModifier;
+// }
 
-float Player::getSpeed() {
-    return _speedModifier;
+void Player::pushObject(Object *object) {
+    this->_object.push_back(object);
 }
 
 bool Player::isDead() {
@@ -139,4 +143,8 @@ void Player::displayStats(sf::RenderWindow& resultsWindow) {
     std::string content, line;
     _scoreText.setString(this->_ss.str());
     resultsWindow.draw(_scoreText);
+}
+
+int Player::getCats() {
+    return this->_catNumber;
 }
