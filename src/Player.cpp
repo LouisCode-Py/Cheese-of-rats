@@ -69,13 +69,17 @@ sf::FloatRect Player::getGlobalBounds() const {
 }
 
 int Player::reduceHealth(double globalmodifier) {
-    _healthPoints -= 1*globalmodifier;
+    _healthPoints -= round(1*globalmodifier);
     return _healthPoints;
 }
 
-bool Player::playerGotHit(Ennemi* ennemy) {
+bool Player::playerGotHit(Ennemi* ennemy,double globalModifier) {
     if (_playerSprite.getGlobalBounds().findIntersection(ennemy->getGlobalBounds())) {
-        this->reduceHealth();
+        if (ennemy->typeEnnemi() == "big") {
+            this->reduceHealth(globalModifier*1.5);
+            return true;
+        }
+        this->reduceHealth(globalModifier);
         return true;
     }
     return false;

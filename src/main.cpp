@@ -133,7 +133,7 @@ int main() {
 			if (!waveEnnemy.empty()) {
 				auto it = waveEnnemy.begin();
 				for (size_t i=0; i < waveEnnemy.size();i++) {
-					if (rat.playerGotHit(waveEnnemy[i])) {
+					if (rat.playerGotHit(waveEnnemy[i],globalModifier)) {
 						//waveEnnemy[i]->deatheffect(0.001f,cheeseT,rat.getSprite(),miniCheeses,i,window);
 						delete waveEnnemy[i];
 						it = waveEnnemy.erase(it);

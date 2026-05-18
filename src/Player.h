@@ -52,7 +52,7 @@ public:
     sf::FloatRect getGlobalBounds() const;
 
     int reduceHealth(double globalModifier);
-    bool playerGotHit(Ennemi* ennemy);
+    bool playerGotHit(Ennemi* ennemy,double globalModifier);
     int getHealth();
     int getMaxHealth();
     void displayHealth(sf::RenderWindow& window);
