@@ -64,6 +64,7 @@ public:
     void quit(sf::RenderWindow& window);
     void renderMoney(sf::RenderWindow& window);
     void addMoney(double globalModifier);
+    void hasBoughtItem(Object* object);
     void addHealth();
     void pushObject(Object* object);
     int getCats();

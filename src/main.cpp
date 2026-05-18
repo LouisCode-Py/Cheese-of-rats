@@ -68,6 +68,7 @@ int main() {
 	int n2 = 0;
 	int waves = 1;
 	double globalModifier = 0;
+	bool gameOver = false;
 	bool iswavefinish = false;
 	bool isDisplayed = false;
 	//window.setFramerateLimit(60);
@@ -95,7 +96,7 @@ int main() {
 
 	auto start = std::chrono::high_resolution_clock::now();
 
-	while ( window.isOpen() ) {
+	while ( window.isOpen() && !gameOver ) {
 		rat.setPlayerBeforeWave();
 		while (!iswavefinish) {
 			while ( const std::optional event = window.pollEvent() )
@@ -204,6 +205,8 @@ int main() {
 					}
 				}
 				window.close();
+				gameOver = true;
+				break;
 		}
 	}
 		// sf::Clock clocktime;
@@ -225,6 +228,7 @@ int main() {
 							if (listofObject.front()[i]->getGlobalBounds().contains(mousePosition) && rat.getCats() > listofObject.front()[i]->getCost() && !listofObject.front()[i]->getIsBought()) {
 								rat.pushObject(listofObject.front()[i]);
 								listofObject.front()[i]->isBought();
+								rat.hasBoughtItem(listofObject.front()[i]);
 							}
 						}
 						if (exitsprite.getGlobalBounds().contains(mousePosition)) {

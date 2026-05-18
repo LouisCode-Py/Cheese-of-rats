@@ -34,12 +34,8 @@ public:
     void setclockToStop();
     bool getIsSpawn();
     void setIsSpawn(bool n);
-
     virtual void deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*> &waveEnnemy,int position);
     void hitPlayer();
-
 };
-
-
 
 #endif //CHEESE_OF_RATS_ENNEMI_H
