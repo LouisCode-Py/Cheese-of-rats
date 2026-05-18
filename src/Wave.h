@@ -6,8 +6,6 @@
 #ifndef CMAKESFMLPROJECT_WAVE_H
 #define CMAKESFMLPROJECT_WAVE_H
 
-
-
 class Wave {
 private:
     std::vector<Ennemi*> _ennemiQueue;
@@ -23,7 +21,5 @@ public:
     void deleteQueue();
    // ~Wave();
 };
-
-
 
 #endif //CMAKESFMLPROJECT_WAVE_H

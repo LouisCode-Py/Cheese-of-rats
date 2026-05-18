@@ -4,7 +4,6 @@
 
 #ifndef CMAKESFMLPROJECT_PLAYER_H
 #define CMAKESFMLPROJECT_PLAYER_H
-#include "Abilities.h"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Window/Keyboard.hpp"
@@ -14,7 +13,6 @@
 #include <chrono>
 #include <sstream>
 #include "Object.h"
-
 
 class Player{
 private:
@@ -68,6 +66,5 @@ public:
     int getCats();
     void setPlayerBeforeWave();
 };
-
 
 #endif //CMAKESFMLPROJECT_PLAYER_H

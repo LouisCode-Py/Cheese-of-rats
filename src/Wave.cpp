@@ -3,7 +3,7 @@
 
 #include "BigCheese.h"
 
-Wave::Wave(float spawnTime,std::default_random_engine generator):_generator(generator) {
+Wave::Wave(float spawnTime, std::default_random_engine generator) : _generator(generator) {
     setSpawnTime(spawnTime);
 }
 
@@ -11,40 +11,36 @@ void Wave::setSpawnTime(float spawnTime) {
     this->_spawnTime = spawnTime;
 }
 
-void Wave::makeTheQueue(float speed,const sf::Texture& texture,const sf::Texture& bigCheese, const sf::Sprite& player,float globalDifficulty,int wave) {
-    std::uniform_int_distribution distribution(50,100);
-    std::uniform_int_distribution<int> disributionforbigcheese(1,6);
+void Wave::makeTheQueue(float speed, const sf::Texture &texture, const sf::Texture &bigCheese, const sf::Sprite &player,
+                        float globalDifficulty, int wave) {
+    std::uniform_int_distribution distribution(50, 100);
+    std::uniform_int_distribution<int> disributionforbigcheese(1, 6);
     int numberOfEnnemi = distribution(this->_generator);
-    for (int i = 0; i<numberOfEnnemi;i++) {
-        if (disributionforbigcheese(this->_generator) != 6 || wave <5) {
-            this->_ennemiQueue.push_back(new Ennemi(speed,texture,player));
+    for (int i = 0; i < numberOfEnnemi; i++) {
+        if (disributionforbigcheese(this->_generator) != 6 || wave < 5) {
+            this->_ennemiQueue.push_back(new Ennemi(speed, texture, player));
         } else {
-            this->_ennemiQueue.push_back(new BigCheese(speed,bigCheese,player));
+            this->_ennemiQueue.push_back(new BigCheese(speed, bigCheese, player));
         }
     }
 }
 
-bool Wave::ifSpawnable(sf::Clock& ennemiClock) {
+bool Wave::ifSpawnable(sf::Clock &ennemiClock) {
     if (ennemiClock.getElapsedTime().asSeconds() >= this->_spawnTime) {
         ennemiClock.restart();
         return true;
     }
-
     return false;
 }
 
-Ennemi* Wave::PassQueue(int n) {
-    return this-> _ennemiQueue[n];
+Ennemi *Wave::PassQueue(int n) {
+    return this->_ennemiQueue[n];
 }
 
 size_t Wave::getQueuesize() {
-   return this->_ennemiQueue.size();
+    return this->_ennemiQueue.size();
 }
 
 void Wave::deleteQueue() {
     this->_ennemiQueue.clear();
-
 }
-
-// Wave::~Wave(){
-// }

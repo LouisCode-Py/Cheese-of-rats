@@ -67,7 +67,7 @@ int main() {
     //ajouter sprite du fond d'ecran/abilitees + implementer window pour afficher le background
     Player rat(texture, font, texture);
     sf::Text textWave(font);
-    Wave wave(0.1f, generator);
+    Wave wave(0.25f, generator);
     int n = 0;
     int n2 = 0;
     int waves = 1;
@@ -245,8 +245,7 @@ int main() {
                         sf::Vector2f mousePosition(static_cast<float>(sf::Mouse::getPosition(window).x),
                                                    static_cast<float>(sf::Mouse::getPosition(window).y));
                         for (size_t i = 0; i < listofObject.front().size(); i++) {
-                            if (listofObject.front()[i]->getGlobalBounds().contains(mousePosition) && rat.getCats() >
-                                listofObject.front()[i]->getCost() && !listofObject.front()[i]->getIsBought()) {
+                            if (listofObject.front()[i]->getGlobalBounds().contains(mousePosition)) {
                                 std::cout << "cost:" << listofObject.front()[i]->getCost() << std::endl;
                                 std::cout << "health:" << listofObject.front()[i]->getHealthModifier() << std::endl;
                                 std::cout << "size x:" << listofObject.front()[i]->getSizeModifier().x << std::endl;

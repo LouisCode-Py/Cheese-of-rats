@@ -20,13 +20,8 @@ add_executable(main src/main.cpp
         src/Player.h
         src/Wave.cpp
         src/Wave.h
-        src/Abilities.cpp
-        src/Abilities.h
-        src/Abilities.h
         src/BigCheese.cpp
         src/BigCheese.h
-        src/MiniCheese.cpp
-        src/MiniCheese.h
         src/Object.cpp
         src/Object.h
 )

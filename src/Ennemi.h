@@ -6,8 +6,6 @@
 #ifndef CHEESE_OF_RATS_ENNEMI_H
 #define CHEESE_OF_RATS_ENNEMI_H
 
-
-
 class Ennemi {
 protected:
     float _timeToDie;
@@ -15,32 +13,45 @@ protected:
     // sf::Texture _ennemyTexture;
     sf::Sprite _ennemySprite;
     float _speed;
-    float _x,_y;
-    float _directionX,_directionY;
+    float _x, _y;
+    float _directionX, _directionY;
     bool _isSpawn;
+
 public:
-    Ennemi(float speed,const sf::Texture& texture,const sf::Sprite& player);
+    Ennemi(float speed, const sf::Texture &texture, const sf::Sprite &player);
 
     void setSpeed(float speed);
+
     virtual void setDirection(sf::Vector2f position);
+
     void setSpawn(const sf::Vector2f &spawn);
+
     virtual void moveEnnemy();
-    void renderEnnemy(sf::RenderWindow& window);
+
+    void renderEnnemy(sf::RenderWindow &window);
+
     void startClock();
+
     bool checkfordeath();
-    const sf::Sprite& getSprite() const;
+
+    const sf::Sprite &getSprite() const;
+
     float getTimeEllapseds();
+
     sf::FloatRect getGlobalBounds();
+
     void setclockToStop();
+
     bool getIsSpawn();
+
     void setIsSpawn(bool n);
 
-    virtual void deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*> &waveEnnemy,int position,sf::RenderWindow &window);
+    virtual void deatheffect(float speed, const sf::Texture &texture, const sf::Sprite &player,
+                             std::vector<Ennemi *> &waveEnnemy, int position, sf::RenderWindow &window);
+
     void hitPlayer();
+
     virtual std::string typeEnnemi();
-
 };
-
-
 
 #endif //CHEESE_OF_RATS_ENNEMI_H

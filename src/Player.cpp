@@ -1,21 +1,15 @@
-//
-// Created by Babin on 4/24/2026.
-//
-
 #include "Player.h"
 #include <fstream>
 #include <chrono>
 
-
-Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
+Player::Player(sf::Texture &texture, sf::Font font, sf::Texture &image)
     : _playerTexture(image),
-    _playerSprite(texture),
-    _healthText(font),
-    _scoreText(font),
-    _quitText(font),
-    _catNumberText(font)
-{
-    _playerPosition = {800.f,500.f};
+      _playerSprite(texture),
+      _healthText(font),
+      _scoreText(font),
+      _quitText(font),
+      _catNumberText(font) {
+    _playerPosition = {800.f, 500.f};
     _playerSprite.setPosition(_playerPosition);
     _catNumber = 0;
     _healthPoints = 30;
@@ -24,11 +18,11 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     _healthText.setFillColor(sf::Color::Green);
     _healthText.setPosition({10.f, 10.f});
     _quitText.setFillColor(sf::Color::Red);
-    _quitText.setPosition({1400.f,950.f});
+    _quitText.setPosition({1400.f, 950.f});
     _catNumberText.setFillColor(sf::Color::Red);
-    _catNumberText.setPosition({1300.f,950.f});
+    _catNumberText.setPosition({1300.f, 950.f});
     _speedmodifier = 1;
-    _sizeModifier = {3.f,3.f};
+    _sizeModifier = {3.f, 3.f};
     _playerSprite.setScale(_sizeModifier);
 }
 
@@ -36,27 +30,27 @@ const sf::Sprite &Player::getSprite() const {
     return this->_playerSprite;
 }
 
-void Player::renderPlayer( sf::RenderWindow& window) {
+void Player::renderPlayer(sf::RenderWindow &window) {
     window.draw(getSprite());
 }
 
 void Player::movePlayer() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({2.f*_speedmodifier,2.f*_speedmodifier});
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-2.f*_speedmodifier,2.f*_speedmodifier});
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-2.f*_speedmodifier,-2.f*_speedmodifier});
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({2.f*_speedmodifier,-2.f*_speedmodifier});
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-        _playerSprite.move({0.f*_speedmodifier,-2.f*_speedmodifier});
+        _playerSprite.move({2.f * _speedmodifier, 2.f * _speedmodifier});
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+        _playerSprite.move({-2.f * _speedmodifier, 2.f * _speedmodifier});
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+        _playerSprite.move({-2.f * _speedmodifier, -2.f * _speedmodifier});
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+        _playerSprite.move({2.f * _speedmodifier, -2.f * _speedmodifier});
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+        _playerSprite.move({0.f * _speedmodifier, -2.f * _speedmodifier});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-        _playerSprite.move({0.f*_speedmodifier,2.f*_speedmodifier});
+        _playerSprite.move({0.f * _speedmodifier, 2.f * _speedmodifier});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-2.f*_speedmodifier,2.f*_speedmodifier});
+        _playerSprite.move({-2.f * _speedmodifier, 0 * _speedmodifier});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({2.f*_speedmodifier,2.f*_speedmodifier});
+        _playerSprite.move({2.f * _speedmodifier, 0 * _speedmodifier});
     }
 }
 
@@ -69,14 +63,14 @@ sf::FloatRect Player::getGlobalBounds() const {
 }
 
 int Player::reduceHealth(double globalmodifier) {
-    _healthPoints -= round(1*globalmodifier);
+    _healthPoints -= round(1 * globalmodifier);
     return _healthPoints;
 }
 
-bool Player::playerGotHit(Ennemi* ennemy,double globalModifier) {
+bool Player::playerGotHit(Ennemi *ennemy, double globalModifier) {
     if (_playerSprite.getGlobalBounds().findIntersection(ennemy->getGlobalBounds())) {
         if (ennemy->typeEnnemi() == "big") {
-            this->reduceHealth(globalModifier*1.5);
+            this->reduceHealth(globalModifier * 1.5);
             return true;
         }
         this->reduceHealth(globalModifier);
@@ -89,18 +83,10 @@ int Player::getHealth() {
     return _healthPoints;
 }
 
-void Player::displayHealth(sf::RenderWindow& window) {
+void Player::displayHealth(sf::RenderWindow &window) {
     _healthText.setString("Health: " + std::to_string(this->getHealth()));
     window.draw(_healthText);
 }
-
-// sf::Vector2f Player::getCurrentSize() {
-//     return _sizeModifier;
-// }
-//
-// float Player::getSpeed() {
-//     return _speedModifier;
-// }
 
 void Player::pushObject(Object *object) {
     this->_object.push_back(object);
@@ -115,7 +101,6 @@ bool Player::isDead() {
 }
 
 void Player::saveData(int waves, std::chrono::duration<float> timeElapsed) {
-
     std::ifstream reader(ASSETS_PATH "savedData.csv");
     std::string content, line;
     bool empty = true;
@@ -124,7 +109,6 @@ void Player::saveData(int waves, std::chrono::duration<float> timeElapsed) {
         std::getline(reader, line);
         while (std::getline(reader, line)) {
             if (line == "Past game scores:") {
-
             } else {
                 content += line + "\n";
             }
@@ -152,7 +136,7 @@ void Player::saveData(int waves, std::chrono::duration<float> timeElapsed) {
     }
 }
 
-void Player::displayStats(sf::RenderWindow& resultsWindow) {
+void Player::displayStats(sf::RenderWindow &resultsWindow) {
     std::ifstream reader(ASSETS_PATH "savedData.csv");
     std::string content, line;
     _scoreText.setString(this->_ss.str());
@@ -164,7 +148,7 @@ int Player::getCats() {
 }
 
 
-void Player::quit(sf::RenderWindow& window) {
+void Player::quit(sf::RenderWindow &window) {
     _quitText.setString("Press Q to quit");
     window.draw(_quitText);
 }
@@ -175,7 +159,7 @@ void Player::renderMoney(sf::RenderWindow &window) {
 }
 
 void Player::addMoney(double globalModifier) {
-    this->_catNumber += 10 + round(1*globalModifier);
+    this->_catNumber += 10 + round(1 * globalModifier);
 }
 
 void Player::hasBoughtItem(Object *object) {
@@ -191,15 +175,15 @@ int Player::getMaxHealth() {
 }
 
 void Player::setPlayerBeforeWave() {
-    for (size_t i = 0; i < _object.size();i++) {
+    for (size_t i = 0; i < _object.size(); i++) {
         if (!_object[i]->getIsUsed()) {
-            this->_maxHealthPoints+= _object[i]->getHealthModifier();
-            this->_speedmodifier+=_object[i]->getSpeedModifier();
+            this->_maxHealthPoints += _object[i]->getHealthModifier();
+            this->_speedmodifier += _object[i]->getSpeedModifier();
             this->_sizeModifier -= _object[i]->getSizeModifier();
             if (_sizeModifier.x > 1.f && _sizeModifier.y > 1.f) {
                 this->_playerSprite.setScale(_sizeModifier);
             } else {
-                this->_playerSprite.setScale({1.f,1.f});
+                this->_playerSprite.setScale({1.f, 1.f});
             }
         }
     }
