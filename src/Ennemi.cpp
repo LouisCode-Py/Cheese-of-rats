@@ -1,7 +1,7 @@
 #include "Ennemi.h"
 #include <cmath>
 
-Ennemi::Ennemi(float speed,sf::Texture& texture, const sf::Sprite& player) :_ennemyTexture(texture), _ennemySprite(_ennemyTexture)
+Ennemi::Ennemi(float speed,sf::Texture& texture, const sf::Sprite& player) :_ennemyTexture(texture), _ennemySprite(texture)
 {
     setSpeed(speed);
     this->_x = 0.f;
@@ -13,6 +13,9 @@ Ennemi::Ennemi(float speed,sf::Texture& texture, const sf::Sprite& player) :_enn
     this->_isSpawn = false;
 
 }
+
+
+
 
 void Ennemi::setDirection(sf::Vector2f position) {
     this->_directionY =  position.y - this->_y ;
@@ -26,6 +29,7 @@ void Ennemi::setSpawn(const sf::Vector2f &spawn) {
         _ennemySprite.setPosition(spawn);
 
 }
+
 
 void Ennemi::setSpeed(float speed) {
     this->_speed = speed;

@@ -12,7 +12,7 @@ class Wave {
 private:
     std::vector<Ennemi*> _ennemiQueue;
     float _spawnTime;
-    std::default_random_engine _generator;
+    std::default_random_engine& _generator;
 public:
     Wave(float spawnTime,std::default_random_engine generator);
     void setSpawnTime(float spawnTime);

@@ -59,7 +59,6 @@ public:
     void displayStats(sf::RenderWindow& resultsWindow);
     // float getSpeed();
     // sf::Vector2f getCurrentSize();
-    void hasBoughtItem(Object* object);
     bool isDead();
     void saveData(int waves, std::chrono::duration<float> timeElapsed);
     void quit(sf::RenderWindow& window);

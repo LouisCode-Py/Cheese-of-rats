@@ -26,7 +26,7 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     _quitText.setFillColor(sf::Color::Red);
     _quitText.setPosition({1400.f,950.f});
     _catNumberText.setFillColor(sf::Color::Red);
-    _catNumberText.setPosition({1300.f,950.f});
+    _catNumberText.setPosition({1400.f,950.f});
     _speedmodifier = 1;
     _sizeModifier = {3.f,3.f};
     _playerSprite.setScale(_sizeModifier);
@@ -171,11 +171,7 @@ void Player::renderMoney(sf::RenderWindow &window) {
 }
 
 void Player::addMoney(double globalModifier) {
-    this->_catNumber += 10 + round(1*globalModifier);
-}
-
-void Player::hasBoughtItem(Object* object) {
-    _catNumber -= object->getCost();
+    this->_catNumber =+ 10 + round(1*globalModifier);
 }
 
 void Player::addHealth() {
@@ -200,4 +196,3 @@ void Player::setPlayerBeforeWave() {
         }
     }
 }
-
