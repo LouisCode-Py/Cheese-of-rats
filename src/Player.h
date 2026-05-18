@@ -37,7 +37,7 @@ private:
     std::stringstream _ss;
     std::vector<Object*> _object;
     int _healtmodified;
-    double _speedmodifier;
+    float _speedmodifier;
     sf::Vector2f _sizeModifier;
 
 public:

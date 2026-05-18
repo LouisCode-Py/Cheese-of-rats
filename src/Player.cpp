@@ -42,21 +42,21 @@ void Player::renderPlayer( sf::RenderWindow& window) {
 
 void Player::movePlayer() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({0.1f,0.1f});
+        _playerSprite.move({2.f*_speedmodifier,2.f*_speedmodifier});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-0.1f,0.1f});
+        _playerSprite.move({-2.f*_speedmodifier,2.f*_speedmodifier});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-0.1f,-0.1f});
+        _playerSprite.move({-2.f*_speedmodifier,-2.f*_speedmodifier});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({0.1f,-0.1f});
+        _playerSprite.move({2.f*_speedmodifier,-2.f*_speedmodifier});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-        _playerSprite.move({0.f,-0.2f});
+        _playerSprite.move({0.f*_speedmodifier,-2.f*_speedmodifier});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-        _playerSprite.move({0.f,0.2f});
+        _playerSprite.move({0.f*_speedmodifier,2.f*_speedmodifier});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-0.2f,0.f});
+        _playerSprite.move({-2.f*_speedmodifier,2.f*_speedmodifier});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({0.2f,0.f});
+        _playerSprite.move({2.f*_speedmodifier,2.f*_speedmodifier});
     }
 }
 

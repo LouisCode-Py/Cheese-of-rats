@@ -14,7 +14,7 @@ void Wave::setSpawnTime(float spawnTime) {
 void Wave::makeTheQueue(float speed,const sf::Texture& texture,const sf::Texture& bigCheese, const sf::Sprite& player,float globalDifficulty,int wave) {
     std::uniform_int_distribution distribution(50,100);
     std::uniform_int_distribution<int> disributionforbigcheese(1,6);
-    int numberOfEnnemi = distribution(this->_generator) + round(50*globalDifficulty);
+    int numberOfEnnemi = distribution(this->_generator);
     for (int i = 0; i<numberOfEnnemi;i++) {
         if (disributionforbigcheese(this->_generator) != 6 || wave <5) {
             this->_ennemiQueue.push_back(new Ennemi(speed,texture,player));
