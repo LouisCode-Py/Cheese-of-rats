@@ -35,8 +35,9 @@ public:
     bool getIsSpawn();
     void setIsSpawn(bool n);
 
-    virtual void deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*> &waveEnnemy,int position);
+    virtual void deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*> &waveEnnemy,int position,sf::RenderWindow &window);
     void hitPlayer();
+    virtual std::string typeEnnemi();
 
 };
 

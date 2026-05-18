@@ -67,13 +67,14 @@ int main() {
 	int n = 0;
 	int n2 = 0;
 	int waves = 1;
-	double globalModifier = 0;
+	double globalModifier = 1;
 	bool iswavefinish = false;
 	bool isDisplayed = false;
 	//window.setFramerateLimit(60);
 	std::queue<std::vector<Object*>> listofObject;
 	sf::Vector2f objectPositions[] = {{297.4f,580.f},{476.8f,530.f},{636.8f,490.f},{816.53f,480.f},};
 	std::vector<Ennemi*> waveEnnemy;
+	std::vector<Ennemi*> miniCheeses;
 
 	wave.makeTheQueue(0.001f,cheeseT,bigCheese,rat.getSprite(),1,waves);
 	for (size_t i = 0; i < wave.getQueuesize();i++) {
@@ -133,7 +134,7 @@ int main() {
 				auto it = waveEnnemy.begin();
 				for (size_t i=0; i < waveEnnemy.size();i++) {
 					if (rat.playerGotHit(waveEnnemy[i])) {
-						waveEnnemy[i]->deatheffect(0.001f,cheeseT,rat.getSprite(),waveEnnemy,i);
+						//waveEnnemy[i]->deatheffect(0.001f,cheeseT,rat.getSprite(),miniCheeses,i,window);
 						delete waveEnnemy[i];
 						it = waveEnnemy.erase(it);
 					} else if (waveEnnemy[i]->checkfordeath()) {

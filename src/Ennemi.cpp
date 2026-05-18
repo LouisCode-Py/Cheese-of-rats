@@ -86,6 +86,10 @@ void Ennemi::hitPlayer() {
 
 }
 
-void Ennemi::deatheffect(float speed,const sf::Texture& texture, const sf::Sprite &player,std::vector<Ennemi*> &waveEnnemy,int position) {
+void Ennemi::deatheffect(float speed,const sf::Texture& texture, const sf::Sprite &player,std::vector<Ennemi*> &waveEnnemy,int position,sf::RenderWindow &window) {
 
+}
+
+std::string Ennemi::typeEnnemi() {
+    return "ennemi";
 }

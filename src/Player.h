@@ -51,14 +51,12 @@ public:
     sf::Vector2f getPlayerPosition() const;
     sf::FloatRect getGlobalBounds() const;
 
-    int reduceHealth();
+    int reduceHealth(double globalModifier);
     bool playerGotHit(Ennemi* ennemy);
     int getHealth();
     int getMaxHealth();
     void displayHealth(sf::RenderWindow& window);
     void displayStats(sf::RenderWindow& resultsWindow);
-    // float getSpeed();
-    // sf::Vector2f getCurrentSize();
     bool isDead();
     void saveData(int waves, std::chrono::duration<float> timeElapsed);
     void quit(sf::RenderWindow& window);

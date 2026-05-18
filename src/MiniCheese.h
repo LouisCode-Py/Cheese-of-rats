@@ -12,6 +12,7 @@ public:
     MiniCheese(float speed,const sf::Texture& texture,const sf::Sprite& player):Ennemi(speed, texture,player){}
     void setDirection(sf::Vector2f position) override;
     void moveEnnemy() override;
+    std::string typeEnnemi() override;
 };
 
 

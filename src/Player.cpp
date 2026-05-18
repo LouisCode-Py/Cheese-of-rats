@@ -68,8 +68,8 @@ sf::FloatRect Player::getGlobalBounds() const {
     return _playerSprite.getGlobalBounds();
 }
 
-int Player::reduceHealth() {
-    _healthPoints -= 1;
+int Player::reduceHealth(double globalmodifier) {
+    _healthPoints -= 1*globalmodifier;
     return _healthPoints;
 }
 

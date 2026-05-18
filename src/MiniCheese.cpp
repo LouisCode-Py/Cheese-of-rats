@@ -10,3 +10,7 @@ void MiniCheese::moveEnnemy() {
     this-> _ennemySprite.move({(this->_directionX)*0.001f,(this->_directionY)*0.001f});
 }
 
+std::string MiniCheese::typeEnnemi() {
+    return "mini";
+}
+
