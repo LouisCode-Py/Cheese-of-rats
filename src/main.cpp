@@ -68,13 +68,13 @@ int main() {
 	int n2 = 0;
 	int waves = 1;
 	double globalModifier = 1;
+	bool gameOver = false;
 	bool iswavefinish = false;
 	bool isDisplayed = false;
 	//window.setFramerateLimit(60);
 	std::queue<std::vector<Object*>> listofObject;
 	sf::Vector2f objectPositions[] = {{297.4f,580.f},{476.8f,530.f},{636.8f,490.f},{816.53f,480.f},};
 	std::vector<Ennemi*> waveEnnemy;
-	std::vector<Ennemi*> miniCheeses;
 
 	wave.makeTheQueue(0.001f,cheeseT,bigCheese,rat.getSprite(),1,waves);
 	for (size_t i = 0; i < wave.getQueuesize();i++) {
@@ -96,7 +96,7 @@ int main() {
 
 	auto start = std::chrono::high_resolution_clock::now();
 
-	while ( window.isOpen() ) {
+	while ( window.isOpen() && !gameOver ) {
 		rat.setPlayerBeforeWave();
 		while (!iswavefinish) {
 			while ( const std::optional event = window.pollEvent() )
@@ -205,6 +205,8 @@ int main() {
 					}
 				}
 				window.close();
+				gameOver = true;
+				break;
 		}
 	}
 		// sf::Clock clocktime;
@@ -226,6 +228,7 @@ int main() {
 							if (listofObject.front()[i]->getGlobalBounds().contains(mousePosition) && rat.getCats() > listofObject.front()[i]->getCost() && !listofObject.front()[i]->getIsBought()) {
 								rat.pushObject(listofObject.front()[i]);
 								listofObject.front()[i]->isBought();
+								rat.hasBoughtItem(listofObject.front()[i]);
 							}
 						}
 						if (exitsprite.getGlobalBounds().contains(mousePosition)) {

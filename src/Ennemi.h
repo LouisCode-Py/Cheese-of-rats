@@ -37,7 +37,6 @@ public:
 
     virtual void deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*> &waveEnnemy,int position,sf::RenderWindow &window);
     void hitPlayer();
-    virtual std::string typeEnnemi();
 
 };
 
