@@ -27,6 +27,9 @@ Player::Player( sf::Texture& texture, sf::Font font, sf::Texture& image)
     _quitText.setPosition({1400.f,950.f});
     _catNumberText.setFillColor(sf::Color::Red);
     _catNumberText.setPosition({1400.f,950.f});
+    _speedmodifier = 1;
+    _sizeModifier = {3.f,3.f};
+    _playerSprite.setScale(_sizeModifier);
 }
 
 const sf::Sprite &Player::getSprite() const {
@@ -39,21 +42,21 @@ void Player::renderPlayer( sf::RenderWindow& window) {
 
 void Player::movePlayer() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({0.05f,0.05f});
+        _playerSprite.move({0.1f,0.1f});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-0.05f,0.05f});
+        _playerSprite.move({-0.1f,0.1f});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-0.05f,-0.05f});
+        _playerSprite.move({-0.1f,-0.1f});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({0.05f,-0.05f});
+        _playerSprite.move({0.1f,-0.1f});
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-        _playerSprite.move({0.f,-0.1f});
+        _playerSprite.move({0.f,-0.2f});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-        _playerSprite.move({0.f,0.1f});
+        _playerSprite.move({0.f,0.2f});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        _playerSprite.move({-0.1f,0.f});
+        _playerSprite.move({-0.2f,0.f});
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        _playerSprite.move({0.1f,0.f});
+        _playerSprite.move({0.2f,0.f});
     }
 }
 
@@ -171,15 +174,25 @@ void Player::addMoney(double globalModifier) {
     this->_catNumber =+ 10 + round(1*globalModifier);
 }
 
-void Player::displayHealth(sf::RenderWindow& window) {
-    _healthText.setString("Health: " + std::to_string(this->getHealth()));
-    window.draw(_healthText);
-}
-
 void Player::addHealth() {
     this->_healthPoints = _maxHealthPoints;
 }
 
 int Player::getMaxHealth() {
     return this->_maxHealthPoints;
+}
+
+void Player::setPlayerBeforeWave() {
+    for (size_t i = 0; i < _object.size();i++) {
+        if (!_object[i]->getIsUsed()) {
+            this->_maxHealthPoints+= _object[i]->getHealthModifier();
+            this->_speedmodifier+=_object[i]->getSpeedModifier();
+            this->_sizeModifier -= _object[i]->getSizeModifier();
+            if (_sizeModifier.x > 1.f && _sizeModifier.y > 1.f) {
+                this->_playerSprite.setScale(_sizeModifier);
+            } else {
+                this->_playerSprite.setScale({1.f,1.f});
+            }
+        }
+    }
 }

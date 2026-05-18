@@ -36,6 +36,10 @@ private:
     sf::Sprite _playerSprite;
     std::stringstream _ss;
     std::vector<Object*> _object;
+    int _healtmodified;
+    double _speedmodifier;
+    sf::Vector2f _sizeModifier;
+
 public:
     Player(sf::Texture& texture, sf::Font font, sf::Texture& image);
 
@@ -59,10 +63,11 @@ public:
     void saveData(int waves, std::chrono::duration<float> timeElapsed);
     void quit(sf::RenderWindow& window);
     void renderMoney(sf::RenderWindow& window);
-    void addMoney();
+    void addMoney(double globalModifier);
     void addHealth();
     void pushObject(Object* object);
     int getCats();
+    void setPlayerBeforeWave();
 };
 
 

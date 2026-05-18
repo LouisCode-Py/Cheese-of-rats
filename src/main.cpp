@@ -17,6 +17,8 @@ int main() {
 	shape.setFillColor( sf::Color::Green );
 	sf::Texture texture(ASSETS_PATH "rat_copy.png");
 	sf::Texture placeHolder(ASSETS_PATH "Placeholder.png");
+	sf::Texture exit(ASSETS_PATH "exit.png");
+	sf::Sprite exitsprite(exit);
 	sf::Texture cheeseT(ASSETS_PATH "cheese.png");
 	sf::Texture backGround(ASSETS_PATH "cheesBackground.png");
 	sf::Texture backGroundShop(ASSETS_PATH "shop.png");
@@ -42,7 +44,8 @@ int main() {
 	spawns.push_back(s5);
 	spawns.push_back(s6);
 	spawns.push_back(s7);
-	std::default_random_engine generator;
+	std::random_device randomDevice;
+	std::default_random_engine generator(randomDevice());
 	std::uniform_int_distribution<int> distribution(0,6);
 	auto whichToSpawn = std::bind ( distribution, generator );
 	sf::Sprite backSprite(backGround);
@@ -52,27 +55,25 @@ int main() {
 	sf::Sprite backSpriteShop(backGroundShop);
 	sf::Vector2u textureSizeShop = backGroundShop.getSize();
 	backSpriteShop.setScale({static_cast<float>(windowSize.x) / textureSize.x,static_cast<float>(windowSize.y) / textureSize.y});
-
-
 	sf::Clock ennemiClock;
 	sf::Font font(ASSETS_PATH "arial.ttf");
 	sf::Text text(font);
 	//ajouter sprite du fond d'ecran/abilitees + implementer window pour afficher le background
 	Player rat(texture,font,texture);
 	sf::Text textWave(font);
-	Wave wave(0.1f);
+	Wave wave(0.1f,generator);
 	int n = 0;
 	int n2 = 0;
-	int waves = 0;
+	int waves = 1;
+	double globalModifier = 0;
 	bool iswavefinish = false;
 	bool isDisplayed = false;
 	//window.setFramerateLimit(60);
 	std::queue<std::vector<Object*>> listofObject;
 	sf::Vector2f objectPositions[] = {{297.4f,580.f},{476.8f,530.f},{636.8f,490.f},{816.53f,480.f},};
-
-
 	std::vector<Ennemi*> waveEnnemy;
-	wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1);
+
+	wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1,waves);
 	for (size_t i = 0; i < wave.getQueuesize();i++) {
 		waveEnnemy.push_back(wave.PassQueue(i));
 	}
@@ -93,7 +94,7 @@ int main() {
 	auto start = std::chrono::high_resolution_clock::now();
 
 	while ( window.isOpen() ) {
-
+		rat.setPlayerBeforeWave();
 		while (!iswavefinish) {
 			while ( const std::optional event = window.pollEvent() )
 			{
@@ -104,6 +105,7 @@ int main() {
 
 			textWave.setString("wave"+std::to_string(waves));
 			textWave.setPosition({200.f,50.f});
+
 			// if (iswavefinish) {
 			// 	wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1);
 			// 	for (size_t i = 0; i < wave.getQueuesize();i++) {
@@ -120,7 +122,7 @@ int main() {
 				int result = whichToSpawn();
 				waveEnnemy[n]->setIsSpawn(true);
 				waveEnnemy[n]->startClock();
-				waveEnnemy[n]->setSpawn(spawns[result]);
+				waveEnnemy[n]->setSpawn(spawns[result].getPosition());
 				waveEnnemy[n]->setDirection(rat.getPlayerPosition());
 				n++;
 			}
@@ -129,6 +131,7 @@ int main() {
 				auto it = waveEnnemy.begin();
 				for (size_t i=0; i < waveEnnemy.size();i++) {
 					if (rat.playerGotHit(waveEnnemy[i])) {
+						waveEnnemy[i]->deatheffect(0.001f,cheeseT,rat.getSprite(),waveEnnemy,i);
 						delete waveEnnemy[i];
 						it = waveEnnemy.erase(it);
 					} else if (waveEnnemy[i]->checkfordeath()) {
@@ -141,35 +144,35 @@ int main() {
 
 			window.clear();
 
-		//game render
-		window.draw(backSprite);
-		if (!waveEnnemy.empty()) {
-			for (size_t i = 0; i < waveEnnemy.size();i++) {
-				if (waveEnnemy[i]->getIsSpawn()) {
-					waveEnnemy[i]->renderEnnemy(window);
-					waveEnnemy[i]->moveEnnemy();
+			//game render
+			window.draw(backSprite);
+			if (!waveEnnemy.empty()) {
+				for (size_t i = 0; i < waveEnnemy.size();i++) {
+					if (waveEnnemy[i]->getIsSpawn()) {
+						waveEnnemy[i]->renderEnnemy(window);
+						waveEnnemy[i]->moveEnnemy();
+					}
 				}
 			}
-		}
-		rat.renderPlayer(window);
-		rat.displayHealth(window);
-		rat.renderMoney(window);
-		window.draw(textWave);
-		window.display();
+			rat.renderPlayer(window);
+			rat.displayHealth(window);
+			rat.renderMoney(window);
+			window.draw(textWave);
+			window.display();
 
 			//move thing
 
 			rat.movePlayer();
 
-		if (waveEnnemy.empty()) {
-			waveEnnemy.clear();
-			iswavefinish = true;
-			wave.deleteQueue();
-			n = 0;
-			waves++;
-			rat.addMoney();
-			rat.addHealth();
-		}
+			if (waveEnnemy.empty()) {
+				waveEnnemy.clear();
+				iswavefinish = true;
+				wave.deleteQueue();
+				n = 0;
+				waves++;
+				rat.addMoney(globalModifier);
+				rat.addHealth();
+			}
 
 			for (size_t i = 0; i < waveEnnemy.size(); i++) {
 				if (waveEnnemy[i]->getIsSpawn()) {
@@ -179,54 +182,78 @@ int main() {
 			n = n2;
 			n2 = 0;
 
-		if (rat.isDead()) {
-			auto end = std::chrono::high_resolution_clock::now();
-			std::chrono::duration<float> elapsed = end - start;
-			rat.saveData(waves,elapsed);
+			if (rat.isDead()) {
+				//sf::RenderWindow resultsWindow( sf::VideoMode( { 1600, 1000 } ), "Labyrinth of STL" );
+				auto end = std::chrono::high_resolution_clock::now();
+				std::chrono::duration<float> elapsed = end - start;
+				rat.saveData(waves,elapsed);
 
-			while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
-			{
-				while (const std::optional event = window.pollEvent()) {
-					if (event->is<sf::Event::Closed>())
-						window.close();
+				while (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)) {
+					while (const std::optional event = window.pollEvent()) {
+						if (event->is<sf::Event::Closed>())
+							window.close();
+					}
+					if (!isDisplayed) {
+						window.clear();
+						rat.quit(window);
+						rat.displayStats(window);
+						window.display();
+						isDisplayed = true;
+					}
 				}
-				if (!isDisplayed) {
-					window.clear();
-					rat.quit(window);
-					rat.displayStats(window);
-					window.display();
-					isDisplayed = true;
-				}
-			}
-			window.close();
+				window.close();
 		}
-
-		resultsWindow.clear();
-		rat.displayStats(resultsWindow);
-		resultsWindow.display();
 	}
 		sf::Clock clocktime;
 		for (size_t i = 0; i < listofObject.front().size(); i++) {
 			listofObject.front()[i]->setPosition(objectPositions[i]);
 		}
+		exitsprite.setPosition({1442.f,825.f});
 		while (iswavefinish) {
 			while ( const std::optional event = window.pollEvent() )
 			{
-				if ( event->is<sf::Event::Closed>() )
+				if ( event->is<sf::Event::Closed>() ) {
 					window.close();
+				}
+				if (const auto* mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+				{
+					if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+						sf::Vector2f mousePosition(static_cast<float>(sf::Mouse::getPosition(window).x), static_cast<float>(sf::Mouse::getPosition(window).y));
+						for (size_t i = 0; i < listofObject.front().size(); i++) {
+							if (listofObject.front()[i]->getGlobalBounds().contains(mousePosition) && rat.getCats() > listofObject.front()[i]->getCost() && !listofObject.front()[i]->getIsBought()) {
+								rat.pushObject(listofObject.front()[i]);
+								listofObject.front()[i]->isBought();
+							}
+						}
+						if (exitsprite.getGlobalBounds().contains(mousePosition)) {
+							wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1,waves);
+							 	for (size_t i = 0; i < wave.getQueuesize();i++) {
+							 		waveEnnemy.push_back(wave.PassQueue(i));
+							 	}
+
+							 	for (size_t i = 0; i < waveEnnemy.size();i++) {
+							 		waveEnnemy[i]->setclockToStop();
+							 	}
+									iswavefinish = false;
+							listofObject.pop();
+							std::vector<Object*> miniListofObject;
+							for (size_t i = 0; i < 4;i++) {
+								miniListofObject.push_back(new Object(generator,placeHolder));
+							}
+							listofObject.push(miniListofObject);
+							miniListofObject.clear();
+						}
+					}
 			}
 
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-				for (size_t i = 0; i < listofObject.front().size(); i++) {
-					sf::Vector2f mousePosition(static_cast<float>(sf::Mouse::getPosition().x), static_cast<float>(sf::Mouse::getPosition().y));
-					if (listofObject.front()[i]->getGlobalBounds().contains(mousePosition) && rat.getCats() > listofObject.front()[i]->getCost()) {
-						rat.pushObject(listofObject.front()[i]);
-					}
-				}
+
+
 			}
 			window.clear();
 			window.draw(backSpriteShop);
 			rat.renderPlayer(window);
+			rat.renderMoney(window);
+			window.draw(exitsprite);
 			for (size_t i = 0; i < listofObject.front().size(); i++) {
 				if (!listofObject.front()[i]->getIsBought()) {
 					listofObject.front()[i]->renderObject(window);

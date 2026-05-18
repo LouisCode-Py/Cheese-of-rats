@@ -13,10 +13,11 @@ private:
     sf::Vector2f _sizeModifier;
     int _healthModifier;
     float _speedModifier;
-    std::default_random_engine _generator;
+    std::default_random_engine& _generator;
     sf::Sprite _objectSprite;
     int _cost;
     bool _isbought;
+    bool _isUsed;
 
 public:
     Object(std::default_random_engine& generator,sf::Texture& texture);
@@ -29,7 +30,9 @@ public:
     void renderObject(sf::RenderWindow& window);
     void setPosition(sf::Vector2f position);
     void isBought();
+    void isUsed();
     bool getIsBought();
+    bool getIsUsed();
 };
 
 

@@ -6,9 +6,10 @@
 
 class BigCheese:public Ennemi{
 public:
-    BigCheese(float speed,const sf::Texture& texture,const sf::Sprite& player):Ennemi(speed, texture,player){}
-    void deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player) override;
-    Ennemi* minis(float speed,const sf::Texture& texture,const sf::Sprite& player);
+    BigCheese(float speed,sf::Texture& texture,const sf::Sprite& player):Ennemi(speed, texture,player){}
+    void deatheffect(float speed,sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*> &waveEnnemy,int position) override;
+    void moveEnnemy() override;
+    void setDirection(sf::Vector2f position) override;
 };
 
 

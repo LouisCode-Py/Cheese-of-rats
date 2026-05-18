@@ -1,7 +1,9 @@
 #include "Wave.h"
 #include <random>
 
-Wave::Wave(float spawnTime) {
+#include "BigCheese.h"
+
+Wave::Wave(float spawnTime,std::default_random_engine generator):_generator(generator) {
     setSpawnTime(spawnTime);
 }
 
@@ -9,15 +11,16 @@ void Wave::setSpawnTime(float spawnTime) {
     this->_spawnTime = spawnTime;
 }
 
-void Wave::setGenerator(std::default_random_engine generator) {
-    this-> _generator = generator;
-}
-
-void Wave::makeTheQueue(float speed, const sf::Texture& texture, const sf::Sprite& player,float globalDifficulty) {
+void Wave::makeTheQueue(float speed,sf::Texture& texture, const sf::Sprite& player,float globalDifficulty,int wave) {
     std::uniform_int_distribution distribution(50,100);
-    int numberOfEnnemi = distribution(this->_generator);
+    std::uniform_int_distribution<int> disributionforbigcheese(1,6);
+    int numberOfEnnemi = distribution(this->_generator) + round(50*globalDifficulty);
     for (int i = 0; i<numberOfEnnemi;i++) {
-        this->_ennemiQueue.push_back(new Ennemi(speed,texture,player));
+        if (disributionforbigcheese(this->_generator) != 6 || wave <5) {
+            this->_ennemiQueue.push_back(new Ennemi(speed,texture,player));
+        } else {
+            this->_ennemiQueue.push_back(new BigCheese(speed,texture,player));
+        }
     }
 }
 
@@ -39,10 +42,6 @@ size_t Wave::getQueuesize() {
 }
 
 void Wave::deleteQueue() {
-    // for (size_t i = 0;i < _ennemiQueue.size();i++) {
-    //     delete this->_ennemiQueue[1];
-    // }
-
     this->_ennemiQueue.clear();
 
 }

@@ -1,13 +1,12 @@
 #include "MiniCheese.h"
 
+void MiniCheese::setDirection(sf::Vector2f position) {
+    this-> _directionX = position.x;
+    this-> _directionY = position.y;
+}
+
+
 void MiniCheese::moveEnnemy() {
-
+    this-> _ennemySprite.move({(this->_directionX),(this->_directionY)});
 }
 
-void MiniCheese::setDirection(int state) {
-    sf::Vector2f direction[6] ={{1.f,1.f},{1.f,-1.f},{-1.f,1.f},{-1.f,-1.f},{1.f,0.f},{-1.f,0.f},};
-}
-
-void MiniCheese::setSpawn(const sf::Sprite &spawn) {
-
-}

@@ -1,7 +1,7 @@
 #include "Ennemi.h"
 #include <cmath>
 
-Ennemi::Ennemi(float speed, const sf::Texture& texture, const sf::Sprite& player) : _ennemySprite(texture)
+Ennemi::Ennemi(float speed,sf::Texture& texture, const sf::Sprite& player) :_ennemyTexture(texture), _ennemySprite(texture)
 {
     setSpeed(speed);
     this->_x = 0.f;
@@ -23,10 +23,10 @@ void Ennemi::setDirection(sf::Vector2f position) {
 
 }
 
-void Ennemi::setSpawn(const sf::CircleShape &spawn) {
-      this->_y = spawn.getPosition().y;
-      this->_x = spawn.getPosition().x;
-        _ennemySprite.setPosition({spawn.getPosition().x,spawn.getPosition().y});
+void Ennemi::setSpawn(const sf::Vector2f &spawn) {
+      this->_y = spawn.y;
+      this->_x = spawn.x;
+        _ennemySprite.setPosition(spawn);
 
 }
 
@@ -86,6 +86,6 @@ void Ennemi::hitPlayer() {
 
 }
 
-void Ennemi::deatheffect(float speed, const sf::Texture &texture, const sf::Sprite &player) {
+void Ennemi::deatheffect(float speed,sf::Texture &texture, const sf::Sprite &player,std::vector<Ennemi*> &waveEnnemy,int position) {
 
 }

@@ -9,10 +9,9 @@
 
 class MiniCheese:public Ennemi{
 public:
-    MiniCheese(float speed,const sf::Texture& texture,const sf::Sprite& player):Ennemi(speed, texture,player){}
-    void setDirection(int state);
-    void setSpawn(const sf::Sprite& spawn);
-    void moveEnnemy();
+    MiniCheese(float speed, sf::Texture& texture,const sf::Sprite& player):Ennemi(speed, texture,player){}
+    void setDirection(sf::Vector2f position) override;
+    void moveEnnemy() override;
 };
 
 
