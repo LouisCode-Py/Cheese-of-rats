@@ -12,14 +12,14 @@ class Ennemi {
 protected:
     float _timeToDie;
     sf::Clock _clock;
-    sf::Texture _ennemyTexture;
+    // sf::Texture _ennemyTexture;
     sf::Sprite _ennemySprite;
     float _speed;
     float _x,_y;
     float _directionX,_directionY;
     bool _isSpawn;
 public:
-    Ennemi(float speed,sf::Texture& texture,const sf::Sprite& player);
+    Ennemi(float speed,const sf::Texture& texture,const sf::Sprite& player);
 
     void setSpeed(float speed);
     virtual void setDirection(sf::Vector2f position);
@@ -35,7 +35,7 @@ public:
     bool getIsSpawn();
     void setIsSpawn(bool n);
 
-    virtual void deatheffect(float speed,sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*> &waveEnnemy,int position);
+    virtual void deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*> &waveEnnemy,int position);
     void hitPlayer();
 
 };

@@ -1,7 +1,7 @@
 #include "Ennemi.h"
 #include <cmath>
 
-Ennemi::Ennemi(float speed,sf::Texture& texture, const sf::Sprite& player) :_ennemyTexture(texture), _ennemySprite(texture)
+Ennemi::Ennemi(float speed,const sf::Texture& texture, const sf::Sprite& player) : _ennemySprite(texture)
 {
     setSpeed(speed);
     this->_x = 0.f;
@@ -86,6 +86,6 @@ void Ennemi::hitPlayer() {
 
 }
 
-void Ennemi::deatheffect(float speed,sf::Texture &texture, const sf::Sprite &player,std::vector<Ennemi*> &waveEnnemy,int position) {
+void Ennemi::deatheffect(float speed,const sf::Texture& texture, const sf::Sprite &player,std::vector<Ennemi*> &waveEnnemy,int position) {
 
 }

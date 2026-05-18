@@ -5,12 +5,13 @@
 #include "BigCheese.h"
 #include "MiniCheese.h"
 
-void BigCheese::deatheffect(float speed,sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*>& waveEnnemy,int position) {
+void BigCheese::deatheffect(float speed,const sf::Texture& texture,const sf::Sprite& player,std::vector<Ennemi*>& waveEnnemy,int position) {
     for (size_t i = 0; i<6;i++) {
         sf::Vector2f direction[6] ={{1.f,1.f},{1.f,-1.f},{-1.f,1.f},{-1.f,-1.f},{1.f,0.f},{-1.f,0.f},};
         waveEnnemy.push_back(new MiniCheese(speed,texture,player));
         waveEnnemy.back()->setDirection(direction[i]);
         waveEnnemy.back()->setSpawn(waveEnnemy[position]->getSprite().getPosition());
+        setIsSpawn(true);
     }
 }
 

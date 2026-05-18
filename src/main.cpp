@@ -22,6 +22,8 @@ int main() {
 	sf::Texture cheeseT(ASSETS_PATH "cheese.png");
 	sf::Texture backGround(ASSETS_PATH "cheesBackground.png");
 	sf::Texture backGroundShop(ASSETS_PATH "shop.png");
+	sf::Texture bigCheese(ASSETS_PATH"bigCheese.png");
+	sf::Texture miniCheese(ASSETS_PATH "miniCheese.png");
 	std::vector<sf::CircleShape> spawns;
 	sf::CircleShape s1(40.f);
 	sf::CircleShape s2(40.f);
@@ -73,7 +75,7 @@ int main() {
 	sf::Vector2f objectPositions[] = {{297.4f,580.f},{476.8f,530.f},{636.8f,490.f},{816.53f,480.f},};
 	std::vector<Ennemi*> waveEnnemy;
 
-	wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1,waves);
+	wave.makeTheQueue(0.001f,cheeseT,bigCheese,rat.getSprite(),1,waves);
 	for (size_t i = 0; i < wave.getQueuesize();i++) {
 		waveEnnemy.push_back(wave.PassQueue(i));
 	}
@@ -103,7 +105,7 @@ int main() {
 			}
 			//game update
 
-			textWave.setString("wave"+std::to_string(waves));
+			textWave.setString("wave:"+std::to_string(waves));
 			textWave.setPosition({200.f,50.f});
 
 			// if (iswavefinish) {
@@ -204,7 +206,7 @@ int main() {
 				window.close();
 		}
 	}
-		sf::Clock clocktime;
+		// sf::Clock clocktime;
 		for (size_t i = 0; i < listofObject.front().size(); i++) {
 			listofObject.front()[i]->setPosition(objectPositions[i]);
 		}
@@ -226,7 +228,7 @@ int main() {
 							}
 						}
 						if (exitsprite.getGlobalBounds().contains(mousePosition)) {
-							wave.makeTheQueue(0.001f,cheeseT,rat.getSprite(),1,waves);
+							wave.makeTheQueue(0.001f,cheeseT,bigCheese,rat.getSprite(),1,waves);
 							 	for (size_t i = 0; i < wave.getQueuesize();i++) {
 							 		waveEnnemy.push_back(wave.PassQueue(i));
 							 	}
@@ -242,12 +244,25 @@ int main() {
 							}
 							listofObject.push(miniListofObject);
 							miniListofObject.clear();
+							globalModifier *=2;
+
+						}
+						exitsprite.setPosition({1442.f,825.f});
+					}
+
+					if (mouseButtonPressed->button == sf::Mouse::Button::Right) {
+						sf::Vector2f mousePosition(static_cast<float>(sf::Mouse::getPosition(window).x), static_cast<float>(sf::Mouse::getPosition(window).y));
+						for (size_t i = 0; i < listofObject.front().size(); i++) {
+							if (listofObject.front()[i]->getGlobalBounds().contains(mousePosition) && rat.getCats() > listofObject.front()[i]->getCost() && !listofObject.front()[i]->getIsBought()) {
+									std::cout<<"cost:" << listofObject.front()[i]->getCost() <<std::endl;
+								std::cout<<"health:" << listofObject.front()[i]->getHealthModifier() <<std::endl;
+								std::cout<<"size x:" << listofObject.front()[i]->getSizeModifier().x <<std::endl;
+								std::cout<<"size y:" << listofObject.front()[i]->getSizeModifier().y <<std::endl;
+								std::cout<<"speed:" << listofObject.front()[i]->getSpeedModifier() <<std::endl;
+							}
 						}
 					}
 			}
-
-
-
 			}
 			window.clear();
 			window.draw(backSpriteShop);
@@ -261,10 +276,10 @@ int main() {
 			}
 			window.display();
 			rat.movePlayer();
-			if (clocktime.getElapsedTime().asSeconds() >= 1.0f) {
-				std::cout<<	rat.getSprite().getPosition().x << ":"<<rat.getSprite().getPosition().y<<std::endl;
-				clocktime.restart();
-			}
+			// if (clocktime.getElapsedTime().asSeconds() >= 1.0f) {
+			// 	std::cout<<	rat.getSprite().getPosition().x << ":"<<rat.getSprite().getPosition().y<<std::endl;
+			// 	clocktime.restart();
+			// }
 		}
 	}
 }

@@ -171,7 +171,7 @@ void Player::renderMoney(sf::RenderWindow &window) {
 }
 
 void Player::addMoney(double globalModifier) {
-    this->_catNumber =+ 10 + round(1*globalModifier);
+    this->_catNumber += 10 + round(1*globalModifier);
 }
 
 void Player::addHealth() {

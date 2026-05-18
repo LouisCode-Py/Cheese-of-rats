@@ -7,6 +7,6 @@ void MiniCheese::setDirection(sf::Vector2f position) {
 
 
 void MiniCheese::moveEnnemy() {
-    this-> _ennemySprite.move({(this->_directionX),(this->_directionY)});
+    this-> _ennemySprite.move({(this->_directionX)*0.001f,(this->_directionY)*0.001f});
 }
 
