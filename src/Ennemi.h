@@ -36,22 +36,19 @@ public:
 
     const sf::Sprite &getSprite() const;
 
-    float getTimeEllapseds();
+    float getTimeEllapseds() const;
 
-    sf::FloatRect getGlobalBounds();
+    sf::FloatRect getGlobalBounds() const;
 
     void setclockToStop();
 
-    bool getIsSpawn();
+    bool getIsSpawn() const;
 
     void setIsSpawn(bool n);
 
-    virtual void deatheffect(float speed, const sf::Texture &texture, const sf::Sprite &player,
-                             std::vector<Ennemi *> &waveEnnemy, int position, sf::RenderWindow &window);
-
     void hitPlayer();
 
-    virtual std::string typeEnnemi();
+    virtual std::string getTypeEnnemi();
 };
 
 #endif //CHEESE_OF_RATS_ENNEMI_H

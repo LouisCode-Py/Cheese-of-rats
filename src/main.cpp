@@ -23,7 +23,6 @@ int main() {
     sf::Texture backGround(ASSETS_PATH "cheesBackground.png");
     sf::Texture backGroundShop(ASSETS_PATH "shop.png");
     sf::Texture bigCheese(ASSETS_PATH"bigCheese.png");
-    sf::Texture miniCheese(ASSETS_PATH "miniCheese.png");
     std::vector<sf::CircleShape> spawns;
     sf::CircleShape s1(40.f);
     sf::CircleShape s2(40.f);
@@ -90,7 +89,7 @@ int main() {
 
     for (size_t i = 0; i < 5; i++) {
         std::vector<Object *> miniListofObject;
-        for (size_t i = 0; i < 4; i++) {
+        for (size_t j = 0; j < 4; j++) {
             miniListofObject.push_back(new Object(generator, placeHolder));
         }
         listofObject.push(miniListofObject);

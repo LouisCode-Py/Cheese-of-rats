@@ -17,15 +17,15 @@ Object::Object(std::default_random_engine& generator,sf::Texture& texture): _gen
 
 }
 
-int Object::getHealthModifier() {
+int Object::getHealthModifier() const{
     return this->_healthModifier;
 }
 
-sf::Vector2f Object::getSizeModifier() {
+sf::Vector2f Object::getSizeModifier() const{
     return this->_sizeModifier;
 }
 
-float Object::getSpeedModifier() {
+float Object::getSpeedModifier() const{
     return this->_speedModifier;
 }
 
@@ -41,11 +41,11 @@ void Object::setPosition(sf::Vector2f position) {
     this->_objectSprite.setPosition(position);
 }
 
-int Object::getCost() {
+int Object::getCost() const{
     return this->_cost;
 }
 
-bool Object::getIsBought() {
+bool Object::getIsBought() const{
     return this->_isbought;
 }
 
@@ -53,7 +53,7 @@ void Object::isBought() {
     this-> _isbought = true;
 }
 
-bool Object::getIsUsed() {
+bool Object::getIsUsed() const{
     return this->_isUsed;
 }
 

@@ -69,7 +69,7 @@ int Player::reduceHealth(double globalmodifier) {
 
 bool Player::playerGotHit(Ennemi *ennemy, double globalModifier) {
     if (_playerSprite.getGlobalBounds().findIntersection(ennemy->getGlobalBounds())) {
-        if (ennemy->typeEnnemi() == "big") {
+        if (ennemy->getTypeEnnemi() == "big") {
             this->reduceHealth(globalModifier * 1.5);
             return true;
         }
@@ -79,7 +79,7 @@ bool Player::playerGotHit(Ennemi *ennemy, double globalModifier) {
     return false;
 }
 
-int Player::getHealth() {
+int Player::getHealth() const{
     return _healthPoints;
 }
 
@@ -143,7 +143,7 @@ void Player::displayStats(sf::RenderWindow &resultsWindow) {
     resultsWindow.draw(_scoreText);
 }
 
-int Player::getCats() {
+int Player::getCats() const {
     return this->_catNumber;
 }
 
@@ -170,7 +170,7 @@ void Player::addHealth() {
     this->_healthPoints = _maxHealthPoints;
 }
 
-int Player::getMaxHealth() {
+int Player::getMaxHealth()const {
     return this->_maxHealthPoints;
 }
 

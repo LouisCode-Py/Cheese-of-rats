@@ -21,18 +21,17 @@ private:
 
 public:
     Object(std::default_random_engine& generator,sf::Texture& texture);
-    sf::Vector2f getSizeModifier();
-    int getHealthModifier();
-    float getSpeedModifier();
-    int getCost();
-
+    sf::Vector2f getSizeModifier() const;
+    int getHealthModifier() const;
+    float getSpeedModifier() const;
+    int getCost() const;
     sf::FloatRect getGlobalBounds() const;
     void renderObject(sf::RenderWindow& window);
     void setPosition(sf::Vector2f position);
     void isBought();
     void isUsed();
-    bool getIsBought();
-    bool getIsUsed();
+    bool getIsBought() const;
+    bool getIsUsed() const;
 };
 
 

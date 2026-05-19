@@ -21,7 +21,6 @@ private:
     }
 
     sf::Text _catNumberText;
-
     sf::Font _font;
     sf::Text _healthText;
     sf::Text _scoreText;
@@ -34,7 +33,6 @@ private:
     sf::Sprite _playerSprite;
     std::stringstream _ss;
     std::vector<Object*> _object;
-    int _healtmodified;
     float _speedmodifier;
     sf::Vector2f _sizeModifier;
 
@@ -51,8 +49,8 @@ public:
 
     int reduceHealth(double globalModifier);
     bool playerGotHit(Ennemi* ennemy,double globalModifier);
-    int getHealth();
-    int getMaxHealth();
+    int getHealth() const;
+    int getMaxHealth() const;
     void displayHealth(sf::RenderWindow& window);
     void displayStats(sf::RenderWindow& resultsWindow);
     bool isDead();
@@ -63,7 +61,7 @@ public:
     void hasBoughtItem(Object* object);
     void addHealth();
     void pushObject(Object* object);
-    int getCats();
+    int getCats() const;
     void setPlayerBeforeWave();
 };
 

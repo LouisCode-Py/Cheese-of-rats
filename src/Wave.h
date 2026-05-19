@@ -19,7 +19,6 @@ public:
     bool ifSpawnable(sf::Clock& ennemiClock);
     size_t getQueuesize();
     void deleteQueue();
-   // ~Wave();
 };
 
 #endif //CMAKESFMLPROJECT_WAVE_H

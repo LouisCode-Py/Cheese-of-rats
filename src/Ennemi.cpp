@@ -52,11 +52,11 @@ bool Ennemi::checkfordeath() {
     return false;
 }
 
-float Ennemi::getTimeEllapseds() {
+float Ennemi::getTimeEllapseds() const{
     return this->_clock.getElapsedTime().asSeconds();
 }
 
-sf::FloatRect Ennemi::getGlobalBounds() {
+sf::FloatRect Ennemi::getGlobalBounds() const{
     return this->_ennemySprite.getGlobalBounds();
 }
 
@@ -64,7 +64,7 @@ void Ennemi::setclockToStop() {
     this->_clock.stop();
 }
 
-bool Ennemi::getIsSpawn() {
+bool Ennemi::getIsSpawn() const{
     return this->_isSpawn;
 }
 
@@ -75,10 +75,6 @@ void Ennemi::setIsSpawn(bool n) {
 void Ennemi::hitPlayer() {
 }
 
-void Ennemi::deatheffect(float speed, const sf::Texture &texture, const sf::Sprite &player,
-                         std::vector<Ennemi *> &waveEnnemy, int position, sf::RenderWindow &window) {
-}
-
-std::string Ennemi::typeEnnemi() {
+ std::string Ennemi::getTypeEnnemi(){
     return "ennemi";
 }
